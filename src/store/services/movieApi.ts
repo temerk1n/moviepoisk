@@ -17,7 +17,9 @@ export const movieApi = createApi({
 
   endpoints: (builder) => ({
     getMovies: builder.query({
-      query: () => "movie",
+      query: (queryParams) => {
+        return {url: '/movie', params: queryParams};
+      },
       keepUnusedDataFor: 5 * 60,
     }),
     getMovieById: builder.query({

@@ -1,6 +1,7 @@
 import {Rating} from "./Rating";
 import {Genre} from "./Genre";
 import {Poster} from "./Poster";
+import {Country} from "./Country";
 
 export type Movie = {
   id: number;
@@ -13,4 +14,5 @@ export type Movie = {
   rating: Rating,
   genres: Genre[],
   poster: Poster,
+  countries: Country[],
 }
