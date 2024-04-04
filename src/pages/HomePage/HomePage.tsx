@@ -7,8 +7,6 @@ export const HomePage = () => {
 
 
   return (
-    <div className="App">
-      <MovieCardList />
-    </div>
+    <MovieCardList />
   );
 }
