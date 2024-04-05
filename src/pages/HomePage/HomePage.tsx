@@ -1,26 +1,38 @@
 import React from 'react';
 import './HomePage.css';
 import {MovieCardList} from "../../components/logic/MovieCardList/MovieCardList";
-import {Layout} from "antd";
+import {Flex, Input, Layout} from "antd";
 import {Link, useSearchParams} from "react-router-dom";
 import {useGetMoviesQuery} from "../../store/services/movieApi";
+import {MyHeader} from "../../components/ui/Header/MyHeader";
 
-const {Header, Content} = Layout;
+const { Content} = Layout;
 
 export const HomePage = () => {
-  const [searchParams, setSearchParams] = useSearchParams({page: '1', limit: '10'});
-  const {data, isFetching, isError} = useGetMoviesQuery({page: searchParams.get('page')!, limit: searchParams.get('limit')!})
+  const [searchParams, setSearchParams] = useSearchParams(
+    {page: '1', limit: '10'}
+  );
+
+  const queryParams = {page: searchParams.get('page')!, limit: searchParams.get('limit')!};
+  const {data, isFetching, isError} = useGetMoviesQuery(queryParams);
+
+  const searchMovies = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
+  }
 
   if (isFetching) return <div>Loading...</div>;
   if (isError) return <div>Error!</div>;
 
   return (
     <Layout>
-      <Header>
-        <Link to={`/?page=1&limit=${searchParams.get('limit')}`}><h1>MOVIEPOISK</h1></Link>
-      </Header>
+      <MyHeader limit={searchParams.get('limit')} onSearchChange={searchMovies}/>
       <Content className="content">
-        {data && <MovieCardList movies={data.docs} totalPages={data.pages} searchParams={searchParams} setSearchParams={setSearchParams} isFetching={isFetching}/>}
+        <MovieCardList
+          movies={data!.docs}
+          totalPages={data!.pages}
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+          isFetching={isFetching} />
       </Content>
     </Layout>
   );
