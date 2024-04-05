@@ -1,14 +1,18 @@
 import {Movie} from "../../../types/Movie";
 import {Card, Col, Flex, Image, List, Rate, Row} from "antd";
+import {Link} from "react-router-dom";
+import './MovieCard.css'
 
 interface MovieCardProps {
   movie: Movie,
 }
 
 export const MovieCard = ({movie}: MovieCardProps) => {
+
   return (
     <List.Item
-    key={movie.id}>
+    key={movie.id}
+    >
       <Card bordered={false} hoverable>
         <Row justify="space-between">
           <Col flex={1}>
@@ -16,8 +20,8 @@ export const MovieCard = ({movie}: MovieCardProps) => {
           </Col>
           <Col flex={6}>
             <Flex gap="small" vertical align="start">
-              <h2>{movie.name}</h2>
-              <span>{movie.alternativeName}, {movie.year}, {movie.movieLength} мин.</span>
+              <Link to={`/movie/${movie.id}`}><h2>{movie.name}</h2></Link>
+              <span>{movie.alternativeName ? `${movie.alternativeName}, ` : ''}{movie.year}, {movie.movieLength} мин.</span>
               <span>{movie.countries[0].name} {movie.genres[0].name}</span>
               <p>{movie.shortDescription}</p>
             </Flex>
