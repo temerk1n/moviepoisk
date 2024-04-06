@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: moviepoisk-dev
+    image: moviepoisk-dev
+    build:
+      context: .
+      target: development
+    env_file:
+      - .env.development
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "7070:7070"
