@@ -1,5 +1,6 @@
 import {createApi, fetchBaseQuery, retry} from "@reduxjs/toolkit/query/react";
 import {MovieResponse} from "../../types/MovieResponse";
+import {ReviewsResponse} from "../../types/ReviewsResponse";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API_URL,
@@ -24,10 +25,16 @@ export const movieApi = createApi({
       keepUnusedDataFor: 5 * 60,
     }),
     getMovieById: builder.query({
-      query: (movieId) => `movie/${movieId}`,
+      query: (movieId) => `/movie/${movieId}`,
       keepUnusedDataFor: 5 * 60,
-    })
+    }),
+    getReviewsByMovieId: builder.query<ReviewsResponse, {movieId: string | undefined, page: number}>({
+      query: (queryParams) => {
+        return {url: "/review", params: queryParams};
+      },
+      keepUnusedDataFor: 60,
+    }),
   })
 })
 
-export const { useGetMoviesQuery, useGetMovieByIdQuery } = movieApi;
+export const { useGetMoviesQuery, useGetMovieByIdQuery, useGetReviewsByMovieIdQuery } = movieApi;

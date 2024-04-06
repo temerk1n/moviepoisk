@@ -3,6 +3,7 @@ import {MovieRating} from "../../ui/MovieRating/MovieRating";
 import {ActorsList} from "../ActorsList/ActorsList";
 import {MovieDetail} from "../../../types/MovieDetail";
 import {MovieDetailDescription} from "../../ui/MovieDetailDescription/MovieDetailDescription";
+import {ReviewList} from "../../ui/ReviewList/ReviewList";
 
 interface MovieDetailCardProps {
   movie: MovieDetail,
@@ -40,6 +41,7 @@ export const MovieDetailCard = ({movie, isFetching, isError}: MovieDetailCardPro
           </Skeleton>
         </Flex>
       </Flex>
+      <ReviewList />
     </Card>
   )
 }

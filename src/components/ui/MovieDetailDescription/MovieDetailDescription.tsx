@@ -33,7 +33,8 @@ export const MovieDetailDescription = ({showSkeleton, isError, movie}: MovieDeta
       <Typography.Paragraph>{movie?.description ? movie.description : "Нет описания"}</Typography.Paragraph>
       <Typography.Title level={3}>{`О ${movie?.type === 'movie' ? "фильме" : "сериале"}`}</Typography.Title>
       <DescriptionItem title="Год производства" description={movie?.year} />
-      <DescriptionItem title="Жанр" description={movie?.genres.map(genre => genre.name).join(' ')} />
+      <DescriptionItem title="Продолжительность" description={`${movie?.movieLength} мин.`} />
+      <DescriptionItem title="Жанр" description={movie?.genres.map(genre => genre.name.charAt(0).toUpperCase() + genre.name.slice(1)).join(' ')} />
       <DescriptionItem title="Слоган" description={movie?.slogan} />
       <DescriptionItem
         title="Режиссеры"
