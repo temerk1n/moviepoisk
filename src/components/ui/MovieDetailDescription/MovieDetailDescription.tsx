@@ -23,7 +23,7 @@ interface MovieDetailDescriptionProps {
 
 export const MovieDetailDescription = ({showSkeleton, isError, movie}: MovieDetailDescriptionProps) => {
   return (
-    <Skeleton active={!isError} loading={showSkeleton} paragraph={{ rows: 10 }}>
+    <Skeleton active={!isError} loading={showSkeleton} paragraph={{ rows: 14 }}>
       <Typography.Title level={2}>{movie?.name} ({movie?.year})</Typography.Title>
       <Typography.Title level={4} type="secondary">
         {movie?.alternativeName ? `${movie.alternativeName}, ` : ""}
