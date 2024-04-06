@@ -2,6 +2,7 @@ import {Movie} from "../../../types/Movie";
 import {Card, Col, Flex, Image, List, Rate, Row} from "antd";
 import {Link} from "react-router-dom";
 import './MovieCard.css'
+import {MovieRating} from "../MovieRating/MovieRating";
 
 interface MovieCardProps {
   movie: Movie,
@@ -30,7 +31,7 @@ export const MovieCard = ({movie}: MovieCardProps) => {
             <Flex justify="flex-end">
               {
                 movie.rating.kp ?
-                  <Rate disabled allowHalf defaultValue={0} value={movie.rating.kp / 2} count={5}/> :
+                  <MovieRating rating={movie.rating.kp} /> :
                   <></>
               }
             </Flex>
