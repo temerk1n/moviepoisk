@@ -1,5 +1,8 @@
 import {Movie} from "./Movie";
+import {Person} from "./Person";
 
 export type MovieDetail = {
-  similarMovies: Movie[],
+  description: string;
+  similarMovies: Movie[];
+  persons: Person[];
 } & Movie;

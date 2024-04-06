@@ -1,5 +1,5 @@
 import {Movie} from "../../../types/Movie";
-import {Card, Col, Flex, Image, List, Rate, Row} from "antd";
+import {Card, Col, Flex, Image, List, Row} from "antd";
 import {Link} from "react-router-dom";
 import './MovieCard.css'
 import {MovieRating} from "../MovieRating/MovieRating";

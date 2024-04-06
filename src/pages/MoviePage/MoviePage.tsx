@@ -3,7 +3,7 @@ import "./MoviePage.css"
 import {MyHeader} from "../../components/ui/Header/MyHeader";
 import {useGetMovieByIdQuery} from "../../store/services/movieApi";
 import {useParams} from "react-router-dom";
-import {MovieDetailCard} from "../../components/ui/MovieDetailCard/MovieDetailCard";
+import {MovieDetailCard} from "../../components/logic/MovieDetailCard/MovieDetailCard";
 
 const {Content} = Layout;
 

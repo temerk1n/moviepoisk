@@ -1,4 +1,6 @@
 .content {
-    margin: auto;
-    width: 80%;
+  margin: auto;
+  width: 80%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
