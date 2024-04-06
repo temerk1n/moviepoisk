@@ -10,7 +10,7 @@ const baseQuery = fetchBaseQuery({
   },
 })
 
-const baseQueryWithRetry = retry(baseQuery, {maxRetries: 0})
+const baseQueryWithRetry = retry(baseQuery, {maxRetries: 2})
 
 export const movieApi = createApi({
   reducerPath: "movieApi",
