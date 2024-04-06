@@ -5,4 +5,5 @@ export type MovieDetail = {
   description: string;
   similarMovies: Movie[];
   persons: Person[];
+  slogan: string;
 } & Movie;

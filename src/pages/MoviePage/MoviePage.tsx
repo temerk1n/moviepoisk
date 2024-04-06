@@ -1,24 +1,24 @@
 import {Layout} from "antd";
 import "./MoviePage.css"
 import {MyHeader} from "../../components/ui/Header/MyHeader";
-import {useGetMovieByIdQuery} from "../../store/services/movieApi";
 import {useParams} from "react-router-dom";
 import {MovieDetailCard} from "../../components/logic/MovieDetailCard/MovieDetailCard";
+import {useGetMovieByIdQuery} from "../../store/services/movieApi";
+import {ErrorAlert} from "../../components/ui/ErrorAlert/ErrorAlert";
 
 const {Content} = Layout;
 
 export const MoviePage = () => {
   const {movieId} = useParams();
-  const {data, isFetching, isError} = useGetMovieByIdQuery(movieId);
 
-  if (isFetching) return <div>Loading...</div>
-  if (isError) return <div>Error</div>
+  const {data: movie, isFetching, isError} = useGetMovieByIdQuery(movieId);
 
   return (
     <Layout>
-        <MyHeader onSearchChange={() => console.log(1)} />
+        <MyHeader onSearchChange={() => console.log('search')} />
         <Content className="content">
-          <MovieDetailCard movie={data}/>
+          <MovieDetailCard movie={movie} isFetching={isFetching} isError={isError} />
+          <ErrorAlert isError={isError} />
         </Content>
     </Layout>
   )
