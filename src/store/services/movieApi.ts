@@ -23,6 +23,11 @@ export const movieApi = createApi({
       },
       keepUnusedDataFor: 5 * 60,
     }),
+    getMovieByName: builder.query<MovieResponse, {page: string, limit: string}>({
+      query: (queryParams) => {
+        return {url: '/movie/search', params: queryParams};
+      }
+    }),
     getMovieById: builder.query({
       query: (movieId) => `movie/${movieId}`,
       keepUnusedDataFor: 5 * 60,
@@ -30,4 +35,4 @@ export const movieApi = createApi({
   })
 })
 
-export const { useGetMoviesQuery, useGetMovieByIdQuery } = movieApi;
+export const { useGetMoviesQuery, useGetMovieByNameQuery, useGetMovieByIdQuery } = movieApi;
