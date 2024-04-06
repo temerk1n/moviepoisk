@@ -1,7 +1,7 @@
-h2 {
+.card-title {
   color: black;
 }
 
-h2:hover {
+.card-title:hover {
   color: gray;
 }

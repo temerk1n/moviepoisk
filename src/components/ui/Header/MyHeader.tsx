@@ -5,7 +5,7 @@ import React from "react";
 const {Header} = Layout;
 
 interface MyHeaderProps {
-  limit: string | null,
+  limit?: string | null,
   onSearchChange: React.ChangeEventHandler<HTMLInputElement>,
 }
 

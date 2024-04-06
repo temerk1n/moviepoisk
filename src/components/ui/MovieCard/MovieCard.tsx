@@ -20,7 +20,7 @@ export const MovieCard = ({movie}: MovieCardProps) => {
           </Col>
           <Col flex={6}>
             <Flex gap="small" vertical align="start">
-              <Link to={`/movie/${movie.id}`}><h2>{movie.name}</h2></Link>
+              <Link to={`/movie/${movie.id}`}><h2 className="card-title">{movie.name}</h2></Link>
               <span>{movie.alternativeName ? `${movie.alternativeName}, ` : ''}{movie.year}, {movie.movieLength} мин.</span>
               <span>{movie.countries[0].name} {movie.genres[0].name}</span>
               <p>{movie.shortDescription}</p>
