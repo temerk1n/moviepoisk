@@ -1,10 +1,8 @@
-import { Card, Flex, Image, Skeleton, Typography } from "antd";
-import { MovieRating } from "../ui/MovieRating";
-import { ActorsList } from "./ActorsList";
+import { Card } from "antd";
 import { MovieDetail } from "../../types/MovieDetail";
-import { MovieDetailDescription } from "../ui/MovieDetailDescription";
-import { ReviewList } from "../ui/ReviewList";
+import { ReviewList } from "./ReviewList";
 import { FC } from "react";
+import { MovieDetailCardMainInfo } from "../ui/MovieDetailCardMainInfo";
 
 interface MovieDetailCardProps {
   movie: MovieDetail;
@@ -21,48 +19,7 @@ export const MovieDetailCard: FC<MovieDetailCardProps> = ({
 
   return (
     <Card>
-      <Flex gap="large" wrap="wrap">
-        <Flex vertical>
-          {showSkeleton ? (
-            <Skeleton.Image
-              active={!isError}
-              style={{ width: 300, height: 300 }}
-            />
-          ) : (
-            <Image width={300} src={movie?.poster.url} alt="Movie poster" />
-          )}
-        </Flex>
-        <Flex vertical flex={2}>
-          <MovieDetailDescription
-            showSkeleton={showSkeleton}
-            isError={isError}
-            movie={movie}
-          />
-        </Flex>
-        <Flex
-          vertical
-          flex={1}
-          justify="flex-start"
-          align="center"
-          gap="middle"
-        >
-          <Skeleton
-            active={!isError}
-            loading={showSkeleton}
-            title={false}
-            paragraph={{ rows: 10 }}
-          >
-            {movie?.rating.kp ? (
-              <MovieRating rating={movie.rating.kp} />
-            ) : (
-              <Typography.Text strong>
-                Нет информации о рейтинге
-              </Typography.Text>
-            )}
-            <ActorsList persons={movie?.persons} />
-          </Skeleton>
-        </Flex>
-      </Flex>
+      <MovieDetailCardMainInfo movie={movie} showSkeleton={showSkeleton} isError={isError} />
       <ReviewList />
     </Card>
   );
