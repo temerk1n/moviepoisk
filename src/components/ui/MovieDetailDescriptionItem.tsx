@@ -5,14 +5,14 @@ const { Text } = Typography;
 
 interface MovieDetailDescriptionItemProps {
   title: string;
-  description: string | number;
+  description: string | number | null;
 }
 
 export const MovieDetailDescriptionItem: FC<MovieDetailDescriptionItemProps> = ({title, description}) => {
   return (
     <>
       <Text strong>{title}</Text>
-      <Text>{description}</Text>
+      <Text>{description ? description : "Нет информации"}</Text>
     </>
   );
 }

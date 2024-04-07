@@ -6,12 +6,12 @@ import { Country } from "./Country";
 export type Movie = {
   id: number;
   type: string;
-  name: string;
-  alternativeName: string;
+  name: string | null;
+  alternativeName: string | null;
   shortDescription: string | null;
-  ageRating: number;
-  year: number;
-  movieLength: number;
+  ageRating: number | null;
+  year: number | null;
+  movieLength: number | null;
   rating: Rating;
   genres: Genre[];
   poster: Poster;
