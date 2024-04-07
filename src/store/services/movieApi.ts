@@ -1,5 +1,6 @@
 import {createApi, fetchBaseQuery, retry} from "@reduxjs/toolkit/query/react";
 import {MovieResponse} from "../../types/MovieResponse";
+import {ReviewsResponse} from "../../types/ReviewsResponse";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API_URL,
@@ -10,7 +11,7 @@ const baseQuery = fetchBaseQuery({
   },
 })
 
-const baseQueryWithRetry = retry(baseQuery, {maxRetries: 0})
+const baseQueryWithRetry = retry(baseQuery, {maxRetries: 2})
 
 export const movieApi = createApi({
   reducerPath: "movieApi",
@@ -29,10 +30,16 @@ export const movieApi = createApi({
       }
     }),
     getMovieById: builder.query({
-      query: (movieId) => `movie/${movieId}`,
+      query: (movieId) => `/movie/${movieId}`,
       keepUnusedDataFor: 5 * 60,
-    })
+    }),
+    getReviewsByMovieId: builder.query<ReviewsResponse, {movieId: string | undefined, page: number}>({
+      query: (queryParams) => {
+        return {url: "/review", params: queryParams};
+      },
+      keepUnusedDataFor: 60,
+    }),
   })
 })
 
-export const { useGetMoviesQuery, useGetMovieByNameQuery, useGetMovieByIdQuery } = movieApi;
+export const { useGetMoviesQuery, useGetMovieByNameQuery, useGetMovieByIdQuery, useGetReviewsByMovieIdQuery } = movieApi;

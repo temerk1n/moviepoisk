@@ -1,19 +1,3 @@
-.header {
-  padding-inline: 10%;
-  background-color: #141414;
-}
-
-.header-content {
-  padding-inline: 2rem;
-  line-height: 2rem;
-  width: 100%;
-  gap: 60%;
-}
-
-.header-content h1 {
-  color: white;
-}
-
 .content {
   margin: auto;
   width: 80%;
