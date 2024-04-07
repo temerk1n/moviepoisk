@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { useGetMoviesQuery } from "../../store/services/movieApi";
 import { MyHeader } from "../../components/ui/MyHeader";
 import { MyFooter } from "../../components/ui/MyFooter";
+import { ErrorAlert } from "../../components/ui/ErrorAlert";
 
 const { Content } = Layout;
 
@@ -42,6 +43,7 @@ export const HomePage: FC = () => {
           setSearchParams={setSearchParams}
           isFetching={isFetching}
         />
+        <ErrorAlert isError={isError} />
       </Content>
       <MyFooter />
     </Layout>
