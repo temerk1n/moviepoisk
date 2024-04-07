@@ -5,6 +5,7 @@ import { Layout } from "antd";
 import { useSearchParams } from "react-router-dom";
 import { useGetMoviesQuery } from "../../store/services/movieApi";
 import { MyHeader } from "../../components/ui/MyHeader";
+import { MyFooter } from "../../components/ui/MyFooter";
 
 const { Content } = Layout;
 
@@ -42,6 +43,7 @@ export const HomePage: FC = () => {
           isFetching={isFetching}
         />
       </Content>
+      <MyFooter />
     </Layout>
   );
 };
