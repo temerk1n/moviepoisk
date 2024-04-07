@@ -1,10 +1,10 @@
 import {Layout} from "antd";
 import "./MoviePage.css"
-import {MyHeader} from "../../components/ui/Header/MyHeader";
+import {MyHeader} from "../../components/ui/MyHeader";
 import {useParams} from "react-router-dom";
 import {MovieDetailCard} from "../../components/logic/MovieDetailCard/MovieDetailCard";
 import {useGetMovieByIdQuery} from "../../store/services/movieApi";
-import {ErrorAlert} from "../../components/ui/ErrorAlert/ErrorAlert";
+import {ErrorAlert} from "../../components/ui/ErrorAlert";
 
 const {Content} = Layout;
 

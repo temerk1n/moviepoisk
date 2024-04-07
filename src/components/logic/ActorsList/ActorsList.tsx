@@ -1,7 +1,7 @@
 import {List, Typography} from "antd";
 import {Person} from "../../../types/Person";
 import {PaginationConfig} from "antd/lib/pagination";
-import {usePagination} from "../../../hooks/usePagination";
+import {usePagination} from "../../../utils/hooks/usePagination";
 
 interface ActorsListProps {
   persons: Person[];

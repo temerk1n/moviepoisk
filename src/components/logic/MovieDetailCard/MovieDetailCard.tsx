@@ -1,9 +1,9 @@
 import {Card, Flex, Image, Skeleton, Typography} from "antd";
-import {MovieRating} from "../../ui/MovieRating/MovieRating";
+import {MovieRating} from "../../ui/MovieRating";
 import {ActorsList} from "../ActorsList/ActorsList";
 import {MovieDetail} from "../../../types/MovieDetail";
-import {MovieDetailDescription} from "../../ui/MovieDetailDescription/MovieDetailDescription";
-import {ReviewList} from "../../ui/ReviewList/ReviewList";
+import {MovieDetailDescription} from "../../ui/MovieDetailDescription";
+import {ReviewList} from "../../ui/ReviewList";
 
 interface MovieDetailCardProps {
   movie: MovieDetail,

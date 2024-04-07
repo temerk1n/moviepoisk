@@ -4,7 +4,7 @@ import {MovieCardList} from "../../components/logic/MovieCardList/MovieCardList"
 import {Flex, Input, Layout} from "antd";
 import {Link, useSearchParams} from "react-router-dom";
 import {useGetMoviesQuery} from "../../store/services/movieApi";
-import {MyHeader} from "../../components/ui/Header/MyHeader";
+import {MyHeader} from "../../components/ui/MyHeader";
 
 const { Content} = Layout;
 
