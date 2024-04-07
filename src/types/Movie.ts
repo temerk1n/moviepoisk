@@ -3,6 +3,11 @@ import { Genre } from "./Genre";
 import { Poster } from "./Poster";
 import { Country } from "./Country";
 
+export type ReleaseYears = {
+  start: number | null;
+  end: number | null;
+};
+
 export type Movie = {
   id: number;
   type: string;
@@ -16,4 +21,6 @@ export type Movie = {
   genres: Genre[];
   poster: Poster;
   countries: Country[];
+  releaseYears: ReleaseYears[];
+  seriesLength: number | null;
 };
