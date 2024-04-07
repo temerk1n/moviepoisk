@@ -1,8 +1,9 @@
-import { Card } from "antd";
+import { Card, Flex } from "antd";
 import { MovieDetail } from "../../types/MovieDetail";
 import { ReviewList } from "./ReviewList";
 import { FC } from "react";
 import { MovieDetailCardMainInfo } from "../ui/MovieDetailCardMainInfo";
+import { MoviePosters } from "./MoviePosters";
 
 interface MovieDetailCardProps {
   movie: MovieDetail;
@@ -15,12 +16,15 @@ export const MovieDetailCard: FC<MovieDetailCardProps> = ({
   isFetching,
   isError,
 }) => {
-  const showSkeleton = isFetching || isError;
+  const showSkeleton: boolean = isFetching || isError;
 
   return (
     <Card>
-      <MovieDetailCardMainInfo movie={movie} showSkeleton={showSkeleton} isError={isError} />
-      <ReviewList />
+      <Flex gap="medium" vertical>
+        <MovieDetailCardMainInfo movie={movie} showSkeleton={showSkeleton} isError={isError} />
+        <MoviePosters />
+        <ReviewList />
+      </Flex>
     </Card>
   );
 };

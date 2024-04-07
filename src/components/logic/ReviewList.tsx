@@ -5,8 +5,9 @@ import { ReviewItem } from "../ui/ReviewItem";
 import { usePagination } from "../../utils/hooks/usePagination";
 import { useGetReviewsByMovieIdQuery } from "../../store/services/movieApi";
 import { useParams } from "react-router-dom";
+import { FC } from "react";
 
-export const ReviewList = () => {
+export const ReviewList: FC = () => {
   const { movieId } = useParams();
   const [currentPage, onPageChange] = usePagination();
 
