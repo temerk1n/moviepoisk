@@ -13,7 +13,7 @@ interface MovieCardProps {
 export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
   return (
     <List.Item key={movie.id}>
-      <Card bordered={false} hoverable>
+      <Card bordered={false}>
         <Row justify="space-between">
           <Col flex={1}>
             <Image width={150} src={movie.poster.previewUrl} />
