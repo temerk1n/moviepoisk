@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './HomePage.css';
-import {MovieCardList} from "../../components/logic/MovieCardList/MovieCardList";
+import {MovieCardList} from "../../components/logic/MovieCardList";
 import {Layout} from "antd";
 import {useSearchParams} from "react-router-dom";
 import {useGetMoviesQuery} from "../../store/services/movieApi";
@@ -8,7 +8,7 @@ import {MyHeader} from "../../components/ui/MyHeader";
 
 const { Content} = Layout;
 
-export const HomePage = () => {
+export const HomePage: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams(
     {page: '1', limit: '10'}
   );

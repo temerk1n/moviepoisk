@@ -1,6 +1,6 @@
 import {Flex, Input, Layout} from "antd";
 import {Link} from "react-router-dom";
-import React, {CSSProperties} from "react";
+import React, {CSSProperties, FC} from "react";
 
 const {Header} = Layout;
 
@@ -25,7 +25,7 @@ const headerTitleStyle: CSSProperties = {
   color: 'white',
 }
 
-export const MyHeader = ({limit = '10', onSearchChange}: MyHeaderProps) => {
+export const MyHeader: FC<MyHeaderProps> = ({limit = '10', onSearchChange}) => {
   return (
     <Header style={headerStyle}>
       <Flex style={headerContentStyle} justify="space-between" align="center">

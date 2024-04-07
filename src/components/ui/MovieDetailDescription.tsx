@@ -1,5 +1,6 @@
 import {Skeleton, Typography} from "antd";
 import {MovieDetail} from "../../types/MovieDetail";
+import {FC} from "react";
 
 const {Text, Title, Paragraph} = Typography;
 
@@ -8,7 +9,7 @@ interface DescriptionItemProps {
   description: string | number,
 }
 
-const DescriptionItem = ({title, description}: DescriptionItemProps) => {
+const DescriptionItem: FC<DescriptionItemProps> = ({title, description}) => {
   return (
     <>
       <Text strong>{title}</Text>

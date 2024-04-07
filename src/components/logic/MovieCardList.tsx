@@ -1,7 +1,7 @@
 import {List} from "antd";
-import React from "react";
-import {Movie} from "../../../types/Movie";
-import {MovieCard} from "../../ui/MovieCard/MovieCard";
+import React, {FC} from "react";
+import {Movie} from "../../types/Movie";
+import {MovieCard} from "../ui/MovieCard";
 import {SetURLSearchParams} from "react-router-dom";
 
 interface MovieCardListProps {
@@ -12,7 +12,7 @@ interface MovieCardListProps {
   setSearchParams: SetURLSearchParams,
 }
 
-export const MovieCardList = ({movies, totalPages, isFetching, searchParams, setSearchParams}: MovieCardListProps) => {
+export const MovieCardList: FC<MovieCardListProps> = ({movies, totalPages, isFetching, searchParams, setSearchParams}) => {
 
 
   const onPageOrPageSizeChange = (page: number, pageSize: number) => {

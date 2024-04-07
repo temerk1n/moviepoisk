@@ -1,9 +1,10 @@
 import {Card, Flex, Image, Skeleton, Typography} from "antd";
-import {MovieRating} from "../../ui/MovieRating";
-import {ActorsList} from "../ActorsList/ActorsList";
-import {MovieDetail} from "../../../types/MovieDetail";
-import {MovieDetailDescription} from "../../ui/MovieDetailDescription";
-import {ReviewList} from "../../ui/ReviewList";
+import {MovieRating} from "../ui/MovieRating";
+import {ActorsList} from "./ActorsList";
+import {MovieDetail} from "../../types/MovieDetail";
+import {MovieDetailDescription} from "../ui/MovieDetailDescription";
+import {ReviewList} from "../ui/ReviewList";
+import {FC} from "react";
 
 interface MovieDetailCardProps {
   movie: MovieDetail,
@@ -11,7 +12,7 @@ interface MovieDetailCardProps {
   isError: boolean,
 }
 
-export const MovieDetailCard = ({movie, isFetching, isError}: MovieDetailCardProps) => {
+export const MovieDetailCard: FC<MovieDetailCardProps> = ({movie, isFetching, isError}) => {
   const showSkeleton = isFetching || isError;
 
   return (

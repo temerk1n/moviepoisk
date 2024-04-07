@@ -1,7 +1,7 @@
 import {List, Skeleton, Typography} from "antd";
 import {PaginationConfig} from "antd/lib/pagination";
 import {Review} from "../../types/Review";
-import {ReviewItem} from "./ReviewItem/ReviewItem";
+import {ReviewItem} from "./ReviewItem";
 import {usePagination} from "../../utils/hooks/usePagination";
 import {useGetReviewsByMovieIdQuery} from "../../store/services/movieApi";
 import {useParams} from "react-router-dom";

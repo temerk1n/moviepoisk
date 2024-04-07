@@ -1,13 +1,14 @@
 import {List, Typography} from "antd";
-import {Person} from "../../../types/Person";
+import {Person} from "../../types/Person";
 import {PaginationConfig} from "antd/lib/pagination";
-import {usePagination} from "../../../utils/hooks/usePagination";
+import {usePagination} from "../../utils/hooks/usePagination";
+import {FC} from "react";
 
 interface ActorsListProps {
   persons: Person[];
 }
 
-export const ActorsList = ({persons}: ActorsListProps) => {
+export const ActorsList: FC<ActorsListProps> = ({persons}) => {
   const [currentPage, onPageChange] = usePagination();
 
   const actors: Person[] = persons.filter(person => person.profession === "актеры");

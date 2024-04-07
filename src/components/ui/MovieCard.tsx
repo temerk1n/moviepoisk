@@ -1,14 +1,17 @@
-import {Movie} from "../../../types/Movie";
-import {Card, Col, Flex, Image, List, Row} from "antd";
+import {Movie} from "../../types/Movie";
+import {Card, Col, Flex, Image, List, Row, Typography} from "antd";
 import {Link} from "react-router-dom";
-import './MovieCard.css'
-import {MovieRating} from "../MovieRating";
+import {MovieRating} from "./MovieRating";
+import {FC} from "react";
+
+const {Title, Text, Paragraph} = Typography;
+
 
 interface MovieCardProps {
   movie: Movie,
 }
 
-export const MovieCard = ({movie}: MovieCardProps) => {
+export const MovieCard: FC<MovieCardProps> = ({movie}) => {
 
   return (
     <List.Item
@@ -21,10 +24,10 @@ export const MovieCard = ({movie}: MovieCardProps) => {
           </Col>
           <Col flex={6}>
             <Flex gap="small" vertical align="start">
-              <Link to={`/movie/${movie.id}`}><h2 className="card-title">{movie.name}</h2></Link>
-              <span>{movie.alternativeName ? `${movie.alternativeName}, ` : ''}{movie.year}, {movie.movieLength} мин.</span>
-              <span>{movie.countries[0].name} {movie.genres[0].name}</span>
-              <p>{movie.shortDescription}</p>
+              <Link to={`/movie/${movie.id}`}><Title level={2} className="card-title">{movie.name}</Title></Link>
+              <Text>{movie.alternativeName ? `${movie.alternativeName}, ` : ''}{movie.year}, {movie.movieLength} мин.</Text>
+              <Text>{movie.countries[0].name} {movie.genres[0].name}</Text>
+              <Paragraph>{movie.shortDescription}</Paragraph>
             </Flex>
           </Col>
           <Col flex={2}>
