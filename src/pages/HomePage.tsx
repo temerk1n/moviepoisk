@@ -1,21 +1,21 @@
 import React, { FC } from "react";
-import "./HomePage.css";
-import { MovieCardList } from "../../components/ui/MovieCardList";
+import { MovieCardList } from "../components/ui/MovieCardList";
 import { Layout } from "antd";
 import { useSearchParams } from "react-router-dom";
-import { useGetMoviesQuery } from "../../store/movieApi";
-import { ErrorAlert } from "../../components/ui/ErrorAlert";
-import { Filters } from "../../types/Filters";
-import { MyLayout } from "../../components/logic/MyLayout";
-import { useFiltersSelector } from "../../store/filtersSlice";
+import { useGetMoviesQuery } from "../store/movieApi";
+import { ErrorAlert } from "../components/ui/ErrorAlert";
+import { Filters } from "../types/Filters";
+import { MyLayout } from "../components/logic/MyLayout";
+import { useFiltersSelector } from "../store/filtersSlice";
 import {
   setPaginationParams,
   usePaginationParamsSelector,
-} from "../../store/paginationParamsSlice";
-import { PaginationParams } from "../../types/PaginationParams";
-import { useAppDispatch } from "../../store/store";
+} from "../store/paginationParamsSlice";
+import { PaginationParams } from "../types/PaginationParams";
+import { useAppDispatch } from "../store/store";
+import { MoviesQueryParams } from "../types/MoviesQueryParams";
 
-const { Content } = Layout;
+const { Content, Sider } = Layout;
 
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -37,9 +37,9 @@ export const HomePage: FC = () => {
     console.log(e.target.value);
   };
 
-  const queryParams = {
-    page: paginationParams.page.toString(),
-    limit: paginationParams.limit.toString(),
+  const queryParams: MoviesQueryParams = {
+    page: paginationParams.page,
+    limit: paginationParams.limit,
   };
   const { data, isFetching, isError } = useGetMoviesQuery(queryParams);
 
@@ -48,8 +48,6 @@ export const HomePage: FC = () => {
       <Content className="content">
         <MovieCardList
           movies={data?.docs}
-          page={paginationParams.page}
-          limit={paginationParams.limit}
           totalPages={data?.pages}
           isFetching={isFetching}
           onPageOrPageSizeChange={onPageOrPageSizeChange}

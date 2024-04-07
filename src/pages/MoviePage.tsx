@@ -1,11 +1,10 @@
 import { Layout } from "antd";
-import "./MoviePage.css";
 import { useParams } from "react-router-dom";
-import { MovieDetailCard } from "../../components/logic/MovieDetailCard";
-import { useGetMovieByIdQuery } from "../../store/movieApi";
-import { ErrorAlert } from "../../components/ui/ErrorAlert";
-import React, { FC } from "react";
-import { MyLayout } from "../../components/logic/MyLayout";
+import { MovieDetailCard } from "../components/logic/MovieDetailCard";
+import { useGetMovieByIdQuery } from "../store/movieApi";
+import { ErrorAlert } from "../components/ui/ErrorAlert";
+import { FC } from "react";
+import { MyLayout } from "../components/logic/MyLayout";
 
 const { Content } = Layout;
 

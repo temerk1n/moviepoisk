@@ -2,11 +2,10 @@ import { List } from "antd";
 import React, { FC } from "react";
 import { Movie } from "../../types/Movie";
 import { MovieCard } from "./MovieCard";
+import { usePaginationParamsSelector } from "../../store/paginationParamsSlice";
 
 interface MovieCardListProps {
   movies: Movie[] | undefined;
-  page: number;
-  limit: number;
   totalPages: number | undefined;
   isFetching: boolean;
   onPageOrPageSizeChange: (page: number, pageSize: number) => void;
@@ -14,12 +13,11 @@ interface MovieCardListProps {
 
 export const MovieCardList: FC<MovieCardListProps> = ({
   movies,
-  page,
-  limit,
   totalPages,
   isFetching,
   onPageOrPageSizeChange,
 }) => {
+  const {page, limit} = usePaginationParamsSelector();
   return (
     <>
       <List
