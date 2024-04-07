@@ -3,6 +3,7 @@ import { Card, Col, Flex, Image, List, Row, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { MovieRating } from "./MovieRating";
 import { FC } from "react";
+import { MinusOutlined } from "@ant-design/icons";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -30,7 +31,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
                 {movie.year}, {movie.movieLength} мин.
               </Text>
               <Text>
-                {movie.countries[0].name} {movie.genres[0].name}
+                {movie.countries[0].name} <MinusOutlined /> {movie.genres[0].name}
               </Text>
               <Paragraph>{movie.shortDescription}</Paragraph>
             </Flex>
