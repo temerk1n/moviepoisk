@@ -1,7 +1,7 @@
 import { Flex, Input, Layout, Typography } from "antd";
 import { Link } from "react-router-dom";
 import React, { CSSProperties, FC } from "react";
-import { useAppSelector } from "../../store/store";
+import { usePaginationParamsSelector } from "../../store/paginationParamsSlice";
 import { PaginationParams } from "../../types/PaginationParams";
 
 const { Header } = Layout;
@@ -29,16 +29,12 @@ interface MyHeaderProps {
 }
 
 export const MyHeader: FC<MyHeaderProps> = ({ onSearchChange }) => {
-  const paginationParams: PaginationParams = useAppSelector(
-    (state) => state.paginationParams,
-  );
+  const { page, limit }: PaginationParams = usePaginationParamsSelector();
 
   return (
     <Header style={headerStyle}>
       <Flex style={headerContentStyle} justify="space-between" align="center">
-        <Link
-          to={`/?page=${paginationParams.page}&limit=${paginationParams.limit}`}
-        >
+        <Link to={`/?page=${page}&limit=${limit}`}>
           <Title style={headerTitleStyle}>MOVIEPOISK</Title>
         </Link>
         <div style={{ width: "30%" }}>

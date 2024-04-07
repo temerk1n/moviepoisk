@@ -35,10 +35,12 @@ export const MovieDetailDescription = ({
         title="Год производства"
         description={movie?.year}
       />
-      <MovieDetailDescriptionItem
-        title="Продолжительность"
-        description={`${movie?.movieLength} мин.`}
-      />
+      {movie?.type === "movie" && (
+        <MovieDetailDescriptionItem
+          title="Продолжительность"
+          description={`${movie?.movieLength} мин.`}
+        />
+      )}
       <MovieDetailDescriptionItem
         title="Жанр"
         description={movie?.genres

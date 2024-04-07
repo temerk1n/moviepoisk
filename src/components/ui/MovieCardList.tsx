@@ -1,33 +1,25 @@
 import { List } from "antd";
 import React, { FC } from "react";
 import { Movie } from "../../types/Movie";
-import { MovieCard } from "../ui/MovieCard";
-import { SetURLSearchParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../store/store";
-import { setPaginationParams } from "../../store/paginationParamsSlice";
+import { MovieCard } from "./MovieCard";
 
 interface MovieCardListProps {
   movies: Movie[] | undefined;
+  page: number;
+  limit: number;
   totalPages: number | undefined;
   isFetching: boolean;
-  setSearchParams: SetURLSearchParams;
+  onPageOrPageSizeChange: (page: number, pageSize: number) => void;
 }
 
 export const MovieCardList: FC<MovieCardListProps> = ({
   movies,
+  page,
+  limit,
   totalPages,
   isFetching,
-  setSearchParams,
+  onPageOrPageSizeChange,
 }) => {
-  const dispatch = useAppDispatch();
-
-  const paginationParams = useAppSelector((state) => state.paginationParams);
-
-  const onPageOrPageSizeChange = (page: number, pageSize: number) => {
-    setSearchParams({ page: page.toString(), limit: pageSize.toString() });
-    dispatch(setPaginationParams({ page: page, limit: pageSize }));
-  };
-
   return (
     <>
       <List
@@ -36,9 +28,9 @@ export const MovieCardList: FC<MovieCardListProps> = ({
         loading={isFetching}
         pagination={{
           defaultCurrent: 1,
-          current: paginationParams.page,
+          current: page,
           defaultPageSize: 10,
-          pageSize: paginationParams.limit,
+          pageSize: limit,
           total: totalPages,
           onChange: onPageOrPageSizeChange,
         }}
