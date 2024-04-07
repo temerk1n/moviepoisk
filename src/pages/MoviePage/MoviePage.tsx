@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 import "./MoviePage.css";
-import { MyHeader } from "../../components/ui/MyHeader";
+import { MyHeader } from "../../components/logic/MyHeader";
 import { useParams } from "react-router-dom";
 import { MovieDetailCard } from "../../components/logic/MovieDetailCard";
 import { useGetMovieByIdQuery } from "../../store/movieApi";

@@ -1,24 +1,27 @@
-import { Flex, Input, Layout } from "antd";
+import { Flex, Input, Layout, Typography } from "antd";
 import { Link } from "react-router-dom";
 import React, { CSSProperties, FC } from "react";
 import { useAppSelector } from "../../store/store";
+import { PaginationParams } from "../../types/PaginationParams";
 
 const { Header } = Layout;
+const { Title } = Typography;
 
 const headerStyle: CSSProperties = {
   paddingInline: "10%",
   backgroundColor: "#141414",
+  position: "sticky",
+  top: 0,
+  zIndex: 1,
 };
 
 const headerContentStyle: CSSProperties = {
   paddingInline: "2rem",
-  lineHeight: "2rem",
-  width: "100%",
-  gap: "60%",
 };
 
 const headerTitleStyle: CSSProperties = {
   color: "white",
+  lineHeight: "1.5rem",
 };
 
 interface MyHeaderProps {
@@ -28,20 +31,22 @@ interface MyHeaderProps {
 export const MyHeader: FC<MyHeaderProps> = ({
   onSearchChange,
 }) => {
-  const paginationParams = useAppSelector(state => state.paginationParams);
+  const paginationParams: PaginationParams = useAppSelector(state => state.paginationParams);
 
   return (
     <Header style={headerStyle}>
       <Flex style={headerContentStyle} justify="space-between" align="center">
         <Link to={`/?page=${paginationParams.page}&limit=${paginationParams.limit}`}>
-          <h1 style={headerTitleStyle}>MOVIEPOISK</h1>
+          <Title style={headerTitleStyle}>MOVIEPOISK</Title>
         </Link>
-        <Input
-          placeholder="Фильмы, сериалы"
-          defaultValue=""
-          onChange={onSearchChange}
-          allowClear
-        />
+        <div style={{width: "30%"}}>
+          <Input
+            placeholder="Фильмы, сериалы"
+            defaultValue=""
+            onChange={onSearchChange}
+            allowClear
+          />
+        </div>
       </Flex>
     </Header>
   );
