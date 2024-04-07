@@ -17,7 +17,7 @@ export const MovieCardList: FC<MovieCardListProps> = ({
   isFetching,
   onPageOrPageSizeChange,
 }) => {
-  const {page, limit} = usePaginationParamsSelector();
+  const { page, limit } = usePaginationParamsSelector();
   return (
     <>
       <List

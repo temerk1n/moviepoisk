@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { MovieCardList } from "../components/ui/MovieCardList";
-import { Layout } from "antd";
+import { Layout, Select, theme } from "antd";
 import { useSearchParams } from "react-router-dom";
 import { useGetMoviesQuery } from "../store/movieApi";
 import { ErrorAlert } from "../components/ui/ErrorAlert";
@@ -18,6 +18,10 @@ import { MoviesQueryParams } from "../types/MoviesQueryParams";
 const { Content, Sider } = Layout;
 
 export const HomePage: FC = () => {
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
   const dispatch = useAppDispatch();
 
   const paginationParams: PaginationParams = usePaginationParamsSelector();
@@ -46,13 +50,31 @@ export const HomePage: FC = () => {
   return (
     <MyLayout onSearchChange={searchMovies}>
       <Content className="content">
-        <MovieCardList
-          movies={data?.docs}
-          totalPages={data?.pages}
-          isFetching={isFetching}
-          onPageOrPageSizeChange={onPageOrPageSizeChange}
-        />
-        <ErrorAlert isError={isError} />
+        <Layout style={{ borderRadius: borderRadiusLG, gap: "2rem" }}>
+          <Sider
+            style={{
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+              height: "50vh",
+              marginTop: "1rem",
+              position: "fixed",
+              overflow: "auto",
+            }}
+          >
+            <Select showSearch>
+              <></>
+            </Select>
+          </Sider>
+          <Content style={{ marginLeft: "14rem" }}>
+            <MovieCardList
+              movies={data?.docs}
+              totalPages={data?.pages}
+              isFetching={isFetching}
+              onPageOrPageSizeChange={onPageOrPageSizeChange}
+            />
+            <ErrorAlert isError={isError} />
+          </Content>
+        </Layout>
       </Content>
     </MyLayout>
   );
