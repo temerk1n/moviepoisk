@@ -12,15 +12,15 @@ const imageScaleFactor: number = 0.4;
 const getCarouselStyle = (screenWidth: number): CSSProperties => {
   return {
     width: screenWidth * imageScaleFactor,
-  }
+  };
 };
 
 const getSkeletonImageStyle = (screenWidth: number): CSSProperties => {
   return {
     width: screenWidth * imageScaleFactor,
     height: screenWidth * imageScaleFactor,
-  }
-}
+  };
+};
 
 export const MoviePosters: FC = () => {
   const width = useResize();
@@ -32,20 +32,29 @@ export const MoviePosters: FC = () => {
   });
 
   const PostersList = data?.docs.map((poster: Poster) => {
-    return <Image key={poster.id} src={poster.url} width={width * imageScaleFactor} preview={false} style={{ margin: "auto" }}/>;
+    return (
+      <Image
+        key={poster.id}
+        src={poster.url}
+        width={width * imageScaleFactor}
+        preview={false}
+        style={{ margin: "auto" }}
+      />
+    );
   });
 
   return (
     <Flex align="center" vertical>
       <Title level={3}>Постеры фильма</Title>
-      {isFetching ?
-        <Skeleton.Image style={getSkeletonImageStyle(width)}/> :
-        (isSuccess && PostersList?.length === 0) ?
-          <Text>Постеров нет</Text> :
-          <Carousel dotPosition="top" style={getCarouselStyle(width)}>
-            {PostersList}
-          </Carousel>
-      }
+      {isFetching ? (
+        <Skeleton.Image style={getSkeletonImageStyle(width)} />
+      ) : isSuccess && PostersList?.length === 0 ? (
+        <Text>Постеров нет</Text>
+      ) : (
+        <Carousel dotPosition="top" style={getCarouselStyle(width)}>
+          {PostersList}
+        </Carousel>
+      )}
     </Flex>
   );
 };

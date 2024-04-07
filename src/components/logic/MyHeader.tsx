@@ -28,18 +28,20 @@ interface MyHeaderProps {
   onSearchChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const MyHeader: FC<MyHeaderProps> = ({
-  onSearchChange,
-}) => {
-  const paginationParams: PaginationParams = useAppSelector(state => state.paginationParams);
+export const MyHeader: FC<MyHeaderProps> = ({ onSearchChange }) => {
+  const paginationParams: PaginationParams = useAppSelector(
+    (state) => state.paginationParams,
+  );
 
   return (
     <Header style={headerStyle}>
       <Flex style={headerContentStyle} justify="space-between" align="center">
-        <Link to={`/?page=${paginationParams.page}&limit=${paginationParams.limit}`}>
+        <Link
+          to={`/?page=${paginationParams.page}&limit=${paginationParams.limit}`}
+        >
           <Title style={headerTitleStyle}>MOVIEPOISK</Title>
         </Link>
-        <div style={{width: "30%"}}>
+        <div style={{ width: "30%" }}>
           <Input
             placeholder="Фильмы, сериалы"
             defaultValue=""

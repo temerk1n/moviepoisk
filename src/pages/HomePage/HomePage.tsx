@@ -4,10 +4,10 @@ import { MovieCardList } from "../../components/logic/MovieCardList";
 import { Layout } from "antd";
 import { useSearchParams } from "react-router-dom";
 import { useGetMoviesQuery } from "../../store/movieApi";
-import { MyHeader } from "../../components/ui/MyHeader";
-import { MyFooter } from "../../components/ui/MyFooter";
 import { ErrorAlert } from "../../components/ui/ErrorAlert";
 import { useAppSelector } from "../../store/store";
+import { PaginationParams } from "../../types/PaginationParams";
+import { MyLayout } from "../../components/logic/MyLayout";
 
 const { Content } = Layout;
 
@@ -17,7 +17,9 @@ export const HomePage: FC = () => {
     limit: "10",
   })[1];
 
-  const paginationParams = useAppSelector(state => state.paginationParams);
+  const paginationParams: PaginationParams = useAppSelector(
+    (state) => state.paginationParams,
+  );
 
   const queryParams = {
     page: paginationParams.page.toString(),
@@ -29,24 +31,17 @@ export const HomePage: FC = () => {
     console.log(e.target.value);
   };
 
-  if (isFetching) return <div>Loading...</div>;
-  if (isError) return <div>Error!</div>;
-
   return (
-    <Layout>
-      <MyHeader
-        onSearchChange={searchMovies}
-      />
+    <MyLayout onSearchChange={searchMovies}>
       <Content className="content">
         <MovieCardList
-          movies={data!.docs}
-          totalPages={data!.pages}
+          movies={data?.docs}
+          totalPages={data?.pages}
           setSearchParams={setSearchParams}
           isFetching={isFetching}
         />
         <ErrorAlert isError={isError} />
       </Content>
-      <MyFooter />
-    </Layout>
+    </MyLayout>
   );
 };

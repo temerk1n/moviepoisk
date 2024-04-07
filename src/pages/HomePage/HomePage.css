@@ -1,6 +1,7 @@
 .content {
   margin: auto;
   width: 80%;
+  min-height: 100vh;
 }
 
 .card-title:hover {

@@ -46,11 +46,14 @@ export const movieApi = createApi({
       },
       keepUnusedDataFor: 60,
     }),
-    getPostersByMovieId: builder.query<PostersResponse, {movieId: string | undefined, type: string | undefined}>({
+    getPostersByMovieId: builder.query<
+      PostersResponse,
+      { movieId: string | undefined; type: string | undefined }
+    >({
       query: (queryParams) => {
         return { url: "/image", params: queryParams };
       },
-    })
+    }),
   }),
 });
 

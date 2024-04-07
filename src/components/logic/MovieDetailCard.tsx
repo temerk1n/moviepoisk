@@ -21,7 +21,11 @@ export const MovieDetailCard: FC<MovieDetailCardProps> = ({
   return (
     <Card>
       <Flex gap="medium" vertical>
-        <MovieDetailCardMainInfo movie={movie} showSkeleton={showSkeleton} isError={isError} />
+        <MovieDetailCardMainInfo
+          movie={movie}
+          showSkeleton={showSkeleton}
+          isError={isError}
+        />
         <MoviePosters />
         <ReviewList />
       </Flex>

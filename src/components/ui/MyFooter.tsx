@@ -8,5 +8,5 @@ export const MyFooter: FC = () => {
     <Footer style={{ textAlign: "center" }}>
       Тестовое задание на стажировку в Авито
     </Footer>
-  )
-}
+  );
+};

@@ -16,4 +16,4 @@ export const paginationParamsSlice = createSlice({
 });
 
 export default paginationParamsSlice.reducer;
-export const {setPaginationParams} = paginationParamsSlice.actions;
+export const { setPaginationParams } = paginationParamsSlice.actions;

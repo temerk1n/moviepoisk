@@ -13,7 +13,11 @@ interface MovieDetailCardMainInfoProps {
   isError: boolean;
 }
 
-export const MovieDetailCardMainInfo: FC<MovieDetailCardMainInfoProps> = ({movie, showSkeleton, isError}) => {
+export const MovieDetailCardMainInfo: FC<MovieDetailCardMainInfoProps> = ({
+  movie,
+  showSkeleton,
+  isError,
+}) => {
   return (
     <Flex gap="large" wrap="wrap">
       <Flex vertical>
@@ -33,13 +37,7 @@ export const MovieDetailCardMainInfo: FC<MovieDetailCardMainInfoProps> = ({movie
           movie={movie}
         />
       </Flex>
-      <Flex
-        vertical
-        flex={1}
-        justify="flex-start"
-        align="center"
-        gap="middle"
-      >
+      <Flex vertical flex={1} justify="flex-start" align="center" gap="middle">
         <Skeleton
           active={!isError}
           loading={showSkeleton}
@@ -49,13 +47,11 @@ export const MovieDetailCardMainInfo: FC<MovieDetailCardMainInfoProps> = ({movie
           {movie?.rating.kp ? (
             <MovieRating rating={movie.rating.kp} />
           ) : (
-            <Text strong>
-              Нет информации о рейтинге
-            </Text>
+            <Text strong>Нет информации о рейтинге</Text>
           )}
           <ActorsList persons={movie?.persons} />
         </Skeleton>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
