@@ -1,4 +1,4 @@
-import {Review} from "./Review";
+import { Review } from "./Review";
 
 export type ReviewsResponse = {
   docs: Review[];
@@ -6,4 +6,4 @@ export type ReviewsResponse = {
   page: number;
   limit: number;
   pages: number;
-}
+};
