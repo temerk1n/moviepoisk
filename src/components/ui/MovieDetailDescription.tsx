@@ -1,22 +1,8 @@
 import { Skeleton, Typography } from "antd";
 import { MovieDetail } from "../../types/MovieDetail";
-import { FC } from "react";
+import { MovieDetailDescriptionItem } from "./MovieDetailDescriptionItem";
 
-const { Text, Title, Paragraph } = Typography;
-
-interface DescriptionItemProps {
-  title: string;
-  description: string | number;
-}
-
-const DescriptionItem: FC<DescriptionItemProps> = ({ title, description }) => {
-  return (
-    <>
-      <Text strong>{title}</Text>
-      <Text>{description}</Text>
-    </>
-  );
-};
+const { Title, Paragraph } = Typography;
 
 interface MovieDetailDescriptionProps {
   showSkeleton: boolean;
@@ -45,12 +31,12 @@ export const MovieDetailDescription = ({
       <Title
         level={3}
       >{`О ${movie?.type === "movie" ? "фильме" : "сериале"}`}</Title>
-      <DescriptionItem title="Год производства" description={movie?.year} />
-      <DescriptionItem
+      <MovieDetailDescriptionItem title="Год производства" description={movie?.year} />
+      <MovieDetailDescriptionItem
         title="Продолжительность"
         description={`${movie?.movieLength} мин.`}
       />
-      <DescriptionItem
+      <MovieDetailDescriptionItem
         title="Жанр"
         description={movie?.genres
           .map(
@@ -58,8 +44,8 @@ export const MovieDetailDescription = ({
           )
           .join(" ")}
       />
-      <DescriptionItem title="Слоган" description={movie?.slogan} />
-      <DescriptionItem
+      <MovieDetailDescriptionItem title="Слоган" description={movie?.slogan} />
+      <MovieDetailDescriptionItem
         title="Режиссеры"
         description={movie?.persons
           .filter((person) => person.profession === "режиссеры")
