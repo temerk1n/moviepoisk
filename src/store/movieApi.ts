@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
-import { MovieResponse } from "../../types/MovieResponse";
-import { ReviewsResponse } from "../../types/ReviewsResponse";
-import { PostersResponse } from "../../types/PostersResponse";
+import { MovieResponse } from "../types/MovieResponse";
+import { ReviewsResponse } from "../types/ReviewsResponse";
+import { PostersResponse } from "../types/PostersResponse";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API_URL,

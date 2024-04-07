@@ -3,7 +3,7 @@ import "./MoviePage.css";
 import { MyHeader } from "../../components/ui/MyHeader";
 import { useParams } from "react-router-dom";
 import { MovieDetailCard } from "../../components/logic/MovieDetailCard";
-import { useGetMovieByIdQuery } from "../../store/services/movieApi";
+import { useGetMovieByIdQuery } from "../../store/movieApi";
 import { ErrorAlert } from "../../components/ui/ErrorAlert";
 import React, { FC } from "react";
 import { MyFooter } from "../../components/ui/MyFooter";

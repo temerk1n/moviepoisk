@@ -3,7 +3,7 @@ import { PaginationConfig } from "antd/lib/pagination";
 import { Review } from "../../types/Review";
 import { ReviewItem } from "../ui/ReviewItem";
 import { usePagination } from "../../utils/hooks/usePagination";
-import { useGetReviewsByMovieIdQuery } from "../../store/services/movieApi";
+import { useGetReviewsByMovieIdQuery } from "../../store/movieApi";
 import { useParams } from "react-router-dom";
 import { FC } from "react";
 

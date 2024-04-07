@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { movieApi } from "./services/movieApi";
+import { movieApi } from "./movieApi";
+import { paginationParamsSlice } from "./paginationParamsSlice";
 
 export const store = configureStore({
   reducer: {
     [movieApi.reducerPath]: movieApi.reducer,
+    paginationParams: paginationParamsSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(movieApi.middleware),

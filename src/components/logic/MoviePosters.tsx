@@ -1,6 +1,6 @@
 import { CSSProperties, FC } from "react";
 import { Carousel, Flex, Image, Skeleton, Typography } from "antd";
-import { useGetPostersByMovieIdQuery } from "../../store/services/movieApi";
+import { useGetPostersByMovieIdQuery } from "../../store/movieApi";
 import { useParams } from "react-router-dom";
 import { Poster } from "../../types/Poster";
 import { useResize } from "../../utils/hooks/useResize";
