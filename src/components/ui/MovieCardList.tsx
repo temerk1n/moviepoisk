@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import { Movie } from "../../types/Movie";
 import { MovieCard } from "./MovieCard";
 import { usePaginationParamsSelector } from "../../store/paginationParamsSlice";
+import { PaginationConfig } from "antd/lib/pagination";
 
 interface MovieCardListProps {
   movies: Movie[] | undefined;
@@ -18,20 +19,24 @@ export const MovieCardList: FC<MovieCardListProps> = ({
   onPageOrPageSizeChange,
 }) => {
   const { page, limit } = usePaginationParamsSelector();
+
+  const paginationConfig: PaginationConfig = {
+    defaultCurrent: 1,
+    current: page,
+    defaultPageSize: 10,
+    pageSize: limit,
+    total: totalPages,
+    hideOnSinglePage: true,
+    onChange: onPageOrPageSizeChange,
+  }
+
   return (
     <>
       <List
         itemLayout="vertical"
         dataSource={movies}
         loading={isFetching}
-        pagination={{
-          defaultCurrent: 1,
-          current: page,
-          defaultPageSize: 10,
-          pageSize: limit,
-          total: totalPages,
-          onChange: onPageOrPageSizeChange,
-        }}
+        pagination={paginationConfig}
         renderItem={(movie: Movie) => {
           return <MovieCard movie={movie} />;
         }}
