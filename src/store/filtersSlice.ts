@@ -1,8 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Filters } from "../types/Filters";
 import { useAppSelector } from "./store";
 
 const initialState: Filters = {
+  genre: "",
   year: 0,
   country: "",
   ageRating: 0,
@@ -12,7 +13,7 @@ export const filtersSlice = createSlice({
   name: "filters",
   initialState: initialState,
   reducers: {
-    setFilters: (state, action: PayloadAction<Filters>) => {
+    setFilters: (state, action) => {
       state.year = action.payload.year;
       state.country = action.payload.country;
       state.ageRating = action.payload.ageRating;

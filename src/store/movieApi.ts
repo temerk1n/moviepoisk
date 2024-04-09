@@ -22,12 +22,12 @@ export const movieApi = createApi({
   endpoints: (builder) => ({
     getMovies: builder.query<MovieResponse, MoviesQueryParams>({
       query: (queryParams) => {
-        return { url: "/movie", params: queryParams };
+        return { url: "/v1.4/movie", params: queryParams };
       },
       keepUnusedDataFor: 5 * 60,
     }),
     getMovieById: builder.query({
-      query: (movieId) => `/movie/${movieId}`,
+      query: (movieId) => `/v1.4/movie/${movieId}`,
       keepUnusedDataFor: 5 * 60,
     }),
     getReviewsByMovieId: builder.query<
@@ -35,7 +35,7 @@ export const movieApi = createApi({
       { movieId: string | undefined; page: number }
     >({
       query: (queryParams) => {
-        return { url: "/review", params: queryParams };
+        return { url: "/v1.4/review", params: queryParams };
       },
       keepUnusedDataFor: 60,
     }),
@@ -44,8 +44,14 @@ export const movieApi = createApi({
       { movieId: string | undefined; type: string | undefined }
     >({
       query: (queryParams) => {
-        return { url: "/image", params: queryParams };
+        return { url: "/v1.4/image", params: queryParams };
       },
+    }),
+    getPossibleValues: builder.query({
+      query: (field) => {
+        return { url: "/v1/movie/possible-values-by-field", params: { field } };
+      },
+      keepUnusedDataFor: 10 * 60,
     }),
   }),
 });
@@ -55,4 +61,5 @@ export const {
   useGetMovieByIdQuery,
   useGetReviewsByMovieIdQuery,
   useGetPostersByMovieIdQuery,
+  useGetPossibleValuesQuery,
 } = movieApi;
