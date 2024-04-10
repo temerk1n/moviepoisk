@@ -1,7 +1,7 @@
-import {configureStore} from "@reduxjs/toolkit";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {movieApi} from "./movieApi";
-import {filtersSlice} from "./filtersSlice";
+import { configureStore } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { movieApi } from "./movieApi";
+import { filtersSlice } from "./filtersSlice";
 
 export const store = configureStore({
   reducer: {

@@ -1,25 +1,27 @@
-import {Flex, Layout, Select, theme} from "antd";
-import {FC} from "react";
-import {useGetFiltersPossibleValues} from "../../utils/hooks/useGetFiltersPossibleValues";
-import {mapOptions} from "../../utils/mapOptions";
-import {useAppDispatch} from "../../store/store";
-import {setFilters} from "../../store/filtersSlice";
-import {FiltersFields} from "../../types/FiltersFields";
+import { Flex, Layout, Select, theme } from "antd";
+import { FC } from "react";
+import { useGetFiltersPossibleValues } from "../../utils/hooks/useGetFiltersPossibleValues";
+import { mapOptions } from "../../utils/mapOptions";
+import { ageRatingOptions, yearOptions } from "../../constants";
+import { FilterName } from "../../types/Filter";
 
 const { Sider } = Layout;
 
+interface HomePageSiderProps {
+  getSelectHandler: (name: FilterName) => (value: string) => void;
+  getSelectClearHandler: (name: FilterName) => () => void;
+}
 
-export const HomePageSider: FC = () => {
+export const HomePageSider: FC<HomePageSiderProps> = ({
+  getSelectHandler,
+  getSelectClearHandler,
+}) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const dispatch = useAppDispatch();
 
-  const {countries, isCountriesFetching, genres, isGenresFetching} = useGetFiltersPossibleValues();
-
-  const onFiltersChange = (value: string) => {
-    dispatch(setFilters([ {name: FiltersFields.genre, value} ]));
-  }
+  const { countries, isCountriesFetching, genres, isGenresFetching } =
+    useGetFiltersPossibleValues();
 
   return (
     <Sider
@@ -30,15 +32,45 @@ export const HomePageSider: FC = () => {
         marginTop: "1rem",
         position: "fixed",
         overflow: "auto",
-        padding: "1rem"
+        padding: "1rem",
       }}
     >
       <Flex vertical gap="large" justify="flex-start">
-        <Select showSearch placeholder="Страна" onChange={onFiltersChange} options={mapOptions(countries)} loading={isCountriesFetching} />
-        <Select showSearch placeholder="Жанры" onChange={onFiltersChange} options={mapOptions(genres)} loading={isGenresFetching} />
-        <Select showSearch placeholder="Год" onChange={onFiltersChange} />
-        <Select showSearch placeholder="Возрастной рейтинг" onChange={onFiltersChange} />
+        <Select
+          showSearch
+          allowClear
+          onClear={getSelectClearHandler("countries.name")}
+          placeholder="Страна"
+          onChange={getSelectHandler("countries.name")}
+          options={mapOptions(countries)}
+          loading={isCountriesFetching}
+        />
+        <Select
+          showSearch
+          allowClear
+          onClear={getSelectClearHandler("genres.name")}
+          placeholder="Жанры"
+          onChange={getSelectHandler("genres.name")}
+          options={mapOptions(genres)}
+          loading={isGenresFetching}
+        />
+        <Select
+          showSearch
+          allowClear
+          onClear={getSelectClearHandler("year")}
+          placeholder="Год"
+          onChange={getSelectHandler("year")}
+          options={yearOptions}
+        />
+        <Select
+          showSearch
+          allowClear
+          onClear={getSelectClearHandler("ageRating")}
+          placeholder="Возрастной рейтинг"
+          onChange={getSelectHandler("ageRating")}
+          options={ageRatingOptions}
+        />
       </Flex>
     </Sider>
-  )
-}
+  );
+};

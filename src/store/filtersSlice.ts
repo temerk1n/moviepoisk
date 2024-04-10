@@ -1,28 +1,33 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Filter} from "../types/Filter";
-import {useAppSelector} from "./store";
-import {FiltersFields} from "../types/FiltersFields";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useAppSelector } from "./store";
+import { Filter } from "../types/Filter";
+import { PaginationParams } from "../types/PaginationParams";
 
+type filtersState = PaginationParams & {
+  options: Filter[];
+};
 
-const initialState: Map<FiltersFields, string | number> = new Map([
-  [FiltersFields.page, 1],
-  [FiltersFields.limit, 10]
-]);
+const initialState: filtersState = {
+  page: 1,
+  limit: 10,
+  options: [],
+};
 
 export const filtersSlice = createSlice({
   name: "filters",
   initialState: initialState,
   reducers: {
-    setFilters: (state, action: PayloadAction<Filter[]>) => {
-      action.payload.forEach(filter => state.set(filter.name, filter.value));
+    setPaginationParams: (state, action: PayloadAction<PaginationParams>) => {
+      state.page = action.payload.page;
+      state.limit = action.payload.limit;
     },
-    resetFilters: (state) => {
-      state = initialState;
+    addFilter: (state, action: PayloadAction<Filter>) => {
+      state.options.push(action.payload);
     },
   },
 });
 
 export default filtersSlice.reducer;
-export const { setFilters, resetFilters } = filtersSlice.actions;
+export const { setPaginationParams, addFilter } = filtersSlice.actions;
 export const useFiltersSelector = () =>
   useAppSelector((state) => state.filters);

@@ -1,6 +1,10 @@
-import {FiltersFields} from "./FiltersFields";
+export type FilterName =
+  | "year"
+  | "genres.name"
+  | "countries.name"
+  | "ageRating";
 
 export type Filter = {
-  name: FiltersFields;
-  value: string | number;
-}
+  name: FilterName;
+  value: string;
+};

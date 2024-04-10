@@ -1,8 +1,7 @@
-import {Flex, Input, Layout, Typography} from "antd";
-import {Link} from "react-router-dom";
-import React, {CSSProperties, FC} from "react";
-import {useFiltersSelector} from "../../store/filtersSlice";
-import {FiltersFields} from "../../types/FiltersFields";
+import { Flex, Input, Layout, Typography } from "antd";
+import { Link } from "react-router-dom";
+import React, { CSSProperties, FC } from "react";
+import { useFiltersSelector } from "../../store/filtersSlice";
 
 const { Header } = Layout;
 const { Title } = Typography;
@@ -31,11 +30,10 @@ interface MyHeaderProps {
 export const MyHeader: FC<MyHeaderProps> = ({ onSearchChange }) => {
   const filters = useFiltersSelector();
 
-
   return (
     <Header style={headerStyle}>
       <Flex style={headerContentStyle} justify="space-between" align="center">
-        <Link to={`/?page=${filters.get(FiltersFields.page)}&limit=${filters.get(FiltersFields.limit)}`}>
+        <Link to={`/?page=${filters.page}&limit=${filters.limit}`}>
           <Title style={headerTitleStyle}>MOVIEPOISK</Title>
         </Link>
         <div style={{ width: "30%" }}>

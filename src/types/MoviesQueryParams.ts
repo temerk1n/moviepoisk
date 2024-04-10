@@ -1,8 +1,6 @@
-export type MoviesQueryParams = {
-  page: number;
-  limit: number;
-  genre?: string;
-  year?: number;
-  country?: string;
-  ageRating?: number;
+import { Filter } from "./Filter";
+import { PaginationParams } from "./PaginationParams";
+
+export type MoviesQueryParams = PaginationParams & {
+  options: Filter[];
 };

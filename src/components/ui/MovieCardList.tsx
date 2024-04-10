@@ -1,10 +1,9 @@
-import {List} from "antd";
-import React, {FC} from "react";
-import {Movie} from "../../types/Movie";
-import {MovieCard} from "./MovieCard";
-import {PaginationConfig} from "antd/lib/pagination";
-import {useFiltersSelector} from "../../store/filtersSlice";
-import {FiltersFields} from "../../types/FiltersFields";
+import { List } from "antd";
+import React, { FC } from "react";
+import { Movie } from "../../types/Movie";
+import { MovieCard } from "./MovieCard";
+import { PaginationConfig } from "antd/lib/pagination";
+import { useFiltersSelector } from "../../store/filtersSlice";
 
 interface MovieCardListProps {
   movies: Movie[] | undefined;
@@ -23,13 +22,13 @@ export const MovieCardList: FC<MovieCardListProps> = ({
 
   const paginationConfig: PaginationConfig = {
     defaultCurrent: 1,
-    current: filters.get(FiltersFields.page) as number,
+    current: filters.page,
     defaultPageSize: 10,
-    pageSize: filters.get(FiltersFields.limit) as number,
+    pageSize: filters.limit,
     total: totalPages,
     hideOnSinglePage: true,
     onChange: onPageOrPageSizeChange,
-  }
+  };
 
   return (
     <>

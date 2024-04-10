@@ -1,11 +1,16 @@
-import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import {
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+  retry,
+} from "@reduxjs/toolkit/query/react";
 import { MovieResponse } from "../types/MovieResponse";
 import { ReviewsResponse } from "../types/ReviewsResponse";
 import { PostersResponse } from "../types/PostersResponse";
 import { MoviesQueryParams } from "../types/MoviesQueryParams";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.REACT_APP_API_URL,
+  baseUrl: "https://api.kinopoisk.dev/",
   prepareHeaders: (headers) => {
     headers.append("X-API-KEY", process.env.REACT_APP_API_TOKEN!);
 
@@ -13,7 +18,8 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 2 });
+// TODO: change maxRetries to 2
+const baseQueryWithRetry = retry(baseQuery, { maxRetries: 0 });
 
 export const movieApi = createApi({
   reducerPath: "movieApi",
@@ -21,8 +27,16 @@ export const movieApi = createApi({
 
   endpoints: (builder) => ({
     getMovies: builder.query<MovieResponse, MoviesQueryParams>({
-      query: (queryParams) => {
-        return { url: "/v1.4/movie", params: queryParams };
+      query: (queryParams): FetchArgs => {
+        const params: any = {
+          page: queryParams.page,
+          limit: queryParams.limit,
+        };
+        queryParams.options.forEach((filter) => {
+          params[filter.name] = filter.value;
+        });
+
+        return { url: "/v1.4/movie", params };
       },
       keepUnusedDataFor: 5 * 60,
     }),

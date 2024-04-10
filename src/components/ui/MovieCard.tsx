@@ -23,7 +23,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
             <Flex gap="small" vertical align="start">
               <Link to={`/movie/${movie.id}`}>
                 <Title level={2} className="card-title">
-                  {movie.name}
+                  {movie.name ? movie.name : movie.alternativeName}
                 </Title>
               </Link>
               <Text>
@@ -34,7 +34,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
               </Text>
               <Text>
                 {movie.countries[0].name} <MinusOutlined />{" "}
-                {movie.genres[0].name}
+                {movie.genres[0]?.name}
               </Text>
               <Paragraph>{movie.shortDescription}</Paragraph>
             </Flex>
