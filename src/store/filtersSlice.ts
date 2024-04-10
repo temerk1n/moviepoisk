@@ -3,7 +3,7 @@ import { useAppSelector } from "./store";
 import { Filter } from "../types/Filter";
 import { PaginationParams } from "../types/PaginationParams";
 
-type filtersState = PaginationParams & {
+export type filtersState = PaginationParams & {
   options: Filter[];
 };
 
