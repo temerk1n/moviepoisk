@@ -2,18 +2,14 @@ import { ChangeEvent, FC } from "react";
 import { MovieCardList } from "../components/ui/MovieCardList";
 import { Layout } from "antd";
 import { useSearchParams } from "react-router-dom";
-import { useGetMoviesQuery } from "../store/movieApi";
 import { ErrorAlert } from "../components/ui/ErrorAlert";
 import { MyLayout } from "../components/logic/MyLayout";
-import {
-  addFilter,
-  setPaginationParams,
-  useFiltersSelector,
-} from "../store/filtersSlice";
+import { addFilter, useFiltersSelector } from "../store/filtersSlice";
 import { useAppDispatch } from "../store/store";
-import { MoviesQueryParams } from "../types/MoviesQueryParams";
 import { HomePageSider } from "../components/logic/HomePageSider";
 import { FilterName } from "../types/Filter";
+import { useGetMoviesQuery } from "../store/movieApi";
+import { MoviesQueryParams } from "../types/MoviesQueryParams";
 
 const { Content } = Layout;
 
@@ -28,6 +24,7 @@ export const HomePage: FC = () => {
     limit: "10",
   });
 
+  // const { data, isFetching, isError } = useSearchParamsFilters(searchParams, dispatch, filters);
   const queryParams: MoviesQueryParams = {
     page: searchParams.has("page")
       ? parseInt(searchParams.get("page")!)
@@ -38,10 +35,11 @@ export const HomePage: FC = () => {
     options: filters.options,
   };
 
+  // TODO: переписать на lazy query
   const { data, isFetching, isError } = useGetMoviesQuery(queryParams);
 
   const onPageOrPageSizeChange = (page: number, pageSize: number) => {
-    dispatch(setPaginationParams({ page: page, limit: pageSize }));
+    // dispatch(setPaginationParams({ page: page, limit: pageSize }));
 
     searchParams.set("page", page.toString());
     searchParams.set("limit", pageSize.toString());
@@ -61,7 +59,7 @@ export const HomePage: FC = () => {
     return () => {
       searchParams.delete(name);
       setSearchParams(searchParams);
-      console.log(filters.options);
+      // console.log(filters.options);
     };
   };
 

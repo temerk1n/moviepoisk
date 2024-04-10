@@ -40,6 +40,11 @@ export const movieApi = createApi({
       },
       keepUnusedDataFor: 5 * 60,
     }),
+    getMovieByName: builder.query({
+      query: (movieName: string) => {
+        return { url: `/v1.4/movie/search`, params: { query: movieName } };
+      },
+    }),
     getMovieById: builder.query({
       query: (movieId) => `/v1.4/movie/${movieId}`,
       keepUnusedDataFor: 5 * 60,
@@ -51,7 +56,6 @@ export const movieApi = createApi({
       query: (queryParams) => {
         return { url: "/v1.4/review", params: queryParams };
       },
-      keepUnusedDataFor: 60,
     }),
     getPostersByMovieId: builder.query<
       PostersResponse,
@@ -72,6 +76,7 @@ export const movieApi = createApi({
 
 export const {
   useGetMoviesQuery,
+  useLazyGetMovieByNameQuery,
   useGetMovieByIdQuery,
   useGetReviewsByMovieIdQuery,
   useGetPostersByMovieIdQuery,

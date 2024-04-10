@@ -1,10 +1,16 @@
 import { useEffect } from "react";
-import { addFilter, setPaginationParams } from "../../store/filtersSlice";
+import {
+  addFilter,
+  filtersState,
+  setPaginationParams,
+} from "../../store/filtersSlice";
 import { store } from "../../store/store";
+import { useGetMoviesQuery } from "../../store/movieApi";
 
 export const useSearchParamsFilters = (
   searchParams: URLSearchParams,
   dispatch: typeof store.dispatch,
+  filters: filtersState,
 ) => {
   useEffect(() => {
     if (searchParams.has("page") && searchParams.has("limit")) {
@@ -35,5 +41,6 @@ export const useSearchParamsFilters = (
           value: searchParams.get("countries.name")!,
         }),
       );
-  }, []);
+  }, [searchParams, dispatch]);
+  return useGetMoviesQuery(filters);
 };
