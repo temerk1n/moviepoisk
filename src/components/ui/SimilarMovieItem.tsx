@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const { Meta } = Card;
 
-const {Title} = Typography;
+const { Title } = Typography;
 
 interface SimilarMovieItemProps {
   movie: Movie;
@@ -14,8 +14,12 @@ interface SimilarMovieItemProps {
 
 export const SimilarMovieItem: FC<SimilarMovieItemProps> = ({ movie }) => {
   const title = (
-    <Link to={`/movie/${movie.id}`}><Title className="card-title" level={3}>{movie.name ? movie.name : movie.alternativeName}</Title></Link>
-  )
+    <Link to={`/movie/${movie.id}`}>
+      <Title className="card-title" level={3}>
+        {movie.name ? movie.name : movie.alternativeName}
+      </Title>
+    </Link>
+  );
 
   const description = (
     <Flex justify="space-between">
@@ -25,13 +29,8 @@ export const SimilarMovieItem: FC<SimilarMovieItemProps> = ({ movie }) => {
   );
 
   return (
-    <Card
-      cover={<img alt="Постер" src={movie.poster.url} />}
-    >
-      <Meta
-        title={title}
-        description={description}
-      />
+    <Card cover={<img alt="Постер" src={movie.poster.url} />}>
+      <Meta title={title} description={description} />
     </Card>
   );
 };

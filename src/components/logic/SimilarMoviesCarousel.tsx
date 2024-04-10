@@ -20,9 +20,7 @@ export const SimilarMoviesCarousel: FC<SimilarMoviesCarouselProps> = ({
   const width = useResize();
 
   const similarMoviesList = similarMovies?.map((movie) => {
-    return (
-      <SimilarMovieItem key={movie.id} movie={movie} />
-    );
+    return <SimilarMovieItem key={movie.id} movie={movie} />;
   });
 
   return (
