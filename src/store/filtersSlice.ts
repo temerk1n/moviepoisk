@@ -1,27 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Filters } from "../types/Filters";
-import { useAppSelector } from "./store";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Filter} from "../types/Filter";
+import {useAppSelector} from "./store";
+import {FiltersFields} from "../types/FiltersFields";
 
-const initialState: Filters = {
-  genre: "",
-  year: 0,
-  country: "",
-  ageRating: 0,
-};
+
+const initialState: Map<FiltersFields, string | number> = new Map([
+  [FiltersFields.page, 1],
+  [FiltersFields.limit, 10]
+]);
 
 export const filtersSlice = createSlice({
   name: "filters",
   initialState: initialState,
   reducers: {
-    setFilters: (state, action) => {
-      state.year = action.payload.year;
-      state.country = action.payload.country;
-      state.ageRating = action.payload.ageRating;
+    setFilters: (state, action: PayloadAction<Filter[]>) => {
+      action.payload.forEach(filter => state.set(filter.name, filter.value));
     },
     resetFilters: (state) => {
-      state.year = initialState.year;
-      state.country = initialState.country;
-      state.ageRating = initialState.ageRating;
+      state = initialState;
     },
   },
 });

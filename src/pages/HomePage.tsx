@@ -1,20 +1,15 @@
-import React, { FC } from "react";
-import { MovieCardList } from "../components/ui/MovieCardList";
-import { Layout, theme } from "antd";
-import { useSearchParams } from "react-router-dom";
-import { useGetMoviesQuery } from "../store/movieApi";
-import { ErrorAlert } from "../components/ui/ErrorAlert";
-import { Filters } from "../types/Filters";
-import { MyLayout } from "../components/logic/MyLayout";
-import { useFiltersSelector } from "../store/filtersSlice";
-import {
-  setPaginationParams,
-  usePaginationParamsSelector,
-} from "../store/paginationParamsSlice";
-import { PaginationParams } from "../types/PaginationParams";
-import { useAppDispatch } from "../store/store";
-import { MoviesQueryParams } from "../types/MoviesQueryParams";
-import { HomePageSider } from "../components/logic/HomePageSider";
+import React, {FC} from "react";
+import {MovieCardList} from "../components/ui/MovieCardList";
+import {Layout, theme} from "antd";
+import {useSearchParams} from "react-router-dom";
+import {useGetMoviesQuery} from "../store/movieApi";
+import {ErrorAlert} from "../components/ui/ErrorAlert";
+import {MyLayout} from "../components/logic/MyLayout";
+import {setFilters, useFiltersSelector} from "../store/filtersSlice";
+import {useAppDispatch} from "../store/store";
+import {MoviesQueryParams} from "../types/MoviesQueryParams";
+import {HomePageSider} from "../components/logic/HomePageSider";
+import {FiltersFields} from "../types/FiltersFields";
 
 const { Content } = Layout;
 
@@ -25,8 +20,7 @@ export const HomePage: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const paginationParams: PaginationParams = usePaginationParamsSelector();
-  const filters: Filters = useFiltersSelector();
+  const filters = useFiltersSelector();
 
   const setSearchParams = useSearchParams({
     page: "1",
@@ -35,7 +29,7 @@ export const HomePage: FC = () => {
 
   const onPageOrPageSizeChange = (page: number, pageSize: number) => {
     setSearchParams({ page: page.toString(), limit: pageSize.toString() });
-    dispatch(setPaginationParams({ page: page, limit: pageSize }));
+    dispatch(setFilters([{ name: FiltersFields.page, value: page}, {name: FiltersFields.limit, value: pageSize}]));
   };
 
   const onNameSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,13 +37,10 @@ export const HomePage: FC = () => {
   };
 
   const queryParams: MoviesQueryParams = {
-    page: paginationParams.page,
-    limit: paginationParams.limit,
-    // genre: filters.genre,
-    // year: filters.year,
-    // country: filters.country,
-    // ageRating: filters.ageRating,
+    page: filters.get(FiltersFields.page) as number,
+    limit: filters.get(FiltersFields.limit) as number,
   };
+
   const { data, isFetching, isError } = useGetMoviesQuery(queryParams);
 
   return (

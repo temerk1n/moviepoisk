@@ -1,9 +1,10 @@
-import { Flex, Layout, Select, theme } from "antd";
-import { FC } from "react";
-import { useGetFiltersPossibleValues } from "../../utils/hooks/useGetFiltersPossibleValues";
-import { mapOptions } from "../../utils/mapOptions";
-import { useAppDispatch } from "../../store/store";
-import { setFilters } from "../../store/filtersSlice";
+import {Flex, Layout, Select, theme} from "antd";
+import {FC} from "react";
+import {useGetFiltersPossibleValues} from "../../utils/hooks/useGetFiltersPossibleValues";
+import {mapOptions} from "../../utils/mapOptions";
+import {useAppDispatch} from "../../store/store";
+import {setFilters} from "../../store/filtersSlice";
+import {FiltersFields} from "../../types/FiltersFields";
 
 const { Sider } = Layout;
 
@@ -17,7 +18,7 @@ export const HomePageSider: FC = () => {
   const {countries, isCountriesFetching, genres, isGenresFetching} = useGetFiltersPossibleValues();
 
   const onFiltersChange = (value: string) => {
-    dispatch(setFilters({}))
+    dispatch(setFilters([ {name: FiltersFields.genre, value} ]));
   }
 
   return (
