@@ -4,6 +4,7 @@ import { ReviewList } from "./ReviewList";
 import { FC } from "react";
 import { MovieDetailCardMainInfo } from "../ui/MovieDetailCardMainInfo";
 import { MoviePosters } from "./MoviePosters";
+import { SimilarMoviesCarousel } from "./SimilarMoviesCarousel";
 
 interface MovieDetailCardProps {
   movie: MovieDetail;
@@ -27,6 +28,10 @@ export const MovieDetailCard: FC<MovieDetailCardProps> = ({
           isError={isError}
         />
         <MoviePosters />
+        <SimilarMoviesCarousel
+          similarMovies={movie?.similarMovies}
+          isFetching={isFetching}
+        />
         <ReviewList />
       </Flex>
     </Card>

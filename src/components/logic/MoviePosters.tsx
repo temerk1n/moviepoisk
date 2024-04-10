@@ -1,26 +1,14 @@
-import { CSSProperties, FC } from "react";
+import { FC } from "react";
 import { Carousel, Flex, Image, Skeleton, Typography } from "antd";
 import { useGetPostersByMovieIdQuery } from "../../store/movieApi";
 import { useParams } from "react-router-dom";
 import { Poster } from "../../types/Poster";
 import { useResize } from "../../utils/hooks/useResize";
+import { imageScaleFactor } from "../../constants";
+import { getSkeletonImageStyle } from "../../utils/getSkeletonImageStyle";
+import { getCarouselStyle } from "../../utils/hooks/getCarouselStyle";
 
 const { Title, Text } = Typography;
-
-const imageScaleFactor: number = 0.4;
-
-const getCarouselStyle = (screenWidth: number): CSSProperties => {
-  return {
-    width: screenWidth * imageScaleFactor,
-  };
-};
-
-const getSkeletonImageStyle = (screenWidth: number): CSSProperties => {
-  return {
-    width: screenWidth * imageScaleFactor,
-    height: screenWidth * imageScaleFactor,
-  };
-};
 
 export const MoviePosters: FC = () => {
   const width = useResize();

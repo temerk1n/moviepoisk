@@ -1,5 +1,7 @@
 import { SelectProps } from "antd";
 
+export const imageScaleFactor: number = 0.5;
+
 const calculateYearOptions = (): SelectProps["options"] => {
   const result: SelectProps["options"] = [];
   const startYear: number = 1900;
