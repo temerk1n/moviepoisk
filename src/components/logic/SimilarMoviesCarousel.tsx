@@ -1,4 +1,4 @@
-import { CSSProperties, FC } from "react";
+import { FC } from "react";
 import { Movie } from "../../types/Movie";
 import { Carousel, Flex, Skeleton, Typography } from "antd";
 import { useResize } from "../../utils/hooks/useResize";
@@ -11,10 +11,6 @@ const { Title, Text } = Typography;
 interface SimilarMoviesCarouselProps {
   similarMovies: Movie[];
   isFetching: boolean;
-}
-
-const dotsStyle: CSSProperties = {
-  color: "black",
 }
 
 export const SimilarMoviesCarousel: FC<SimilarMoviesCarouselProps> = ({
