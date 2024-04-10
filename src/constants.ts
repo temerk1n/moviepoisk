@@ -1,6 +1,6 @@
 import { SelectProps } from "antd";
 
-export const imageScaleFactor: number = 0.5;
+export const imageScaleFactor: number = 0.4;
 
 const calculateYearOptions = (): SelectProps["options"] => {
   const result: SelectProps["options"] = [];
