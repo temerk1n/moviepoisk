@@ -16,8 +16,8 @@ export const yearOptions: SelectProps["options"] = calculateYearOptions();
 
 export const ageRatingOptions: SelectProps["options"] = [
   { label: "0+", value: "0" },
-  { label: "6+", value: "0-6" },
-  { label: "12+", value: "0-12" },
-  { label: "16+", value: "0-16" },
-  { label: "18+", value: "0-18" },
+  { label: "6+", value: "6" },
+  { label: "12+", value: "12" },
+  { label: "16+", value: "16" },
+  { label: "18+", value: "18" },
 ];
