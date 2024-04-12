@@ -1,5 +1,5 @@
 import { Flex, Layout, Select, Typography } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, {
   CSSProperties,
   FC,
@@ -42,7 +42,7 @@ const headerTitleStyle: CSSProperties = {
 };
 
 export const MyHeader: FC = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const filters = useFiltersSelector();
@@ -56,7 +56,7 @@ export const MyHeader: FC = () => {
       dispatch(addToHistory(debouncedMovieName));
       dispatch(resetFilters());
       dispatch(setQuery(debouncedMovieName));
-      // navigate(`/?page=1&limit=10&movieName=${debouncedMovieName}}`)
+      navigate(`/?page=1&limit=10&movieName=${debouncedMovieName}}`)
       console.log(searchHistory);
     }
   }, [debouncedMovieName]);
