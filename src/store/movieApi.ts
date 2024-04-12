@@ -12,7 +12,7 @@ import { MoviesQueryParams } from "../types/MoviesQueryParams";
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://api.kinopoisk.dev/",
   prepareHeaders: (headers) => {
-    headers.append("X-API-KEY", process.env.REACT_APP_API_TOKEN!);
+    headers.append("X-API-KEY", process.env.TOKEN!);
 
     return headers;
   },
