@@ -14,10 +14,12 @@ export const searchHistorySlice = createSlice({
   initialState: initialState,
   reducers: {
     addToHistory: (state, action) => {
-      if (state.history.length > 20) {
-        state.history.pop();
+      if (state.history.indexOf(action.payload) === -1) {
+        if (state.history.length > 20) {
+          state.history.pop();
+        }
+        state.history.unshift(action.payload);
       }
-      state.history.unshift(action.payload);
     },
   },
 });

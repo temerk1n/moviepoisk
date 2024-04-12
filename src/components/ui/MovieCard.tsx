@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { MovieRating } from "./MovieRating";
 import { FC } from "react";
 import { MinusOutlined } from "@ant-design/icons";
+import { useResize } from "../../utils/hooks/useResize";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -12,12 +13,14 @@ interface MovieCardProps {
 }
 
 export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
+  const width = useResize();
+
   return (
     <List.Item key={movie.id}>
       <Card bordered={false}>
         <Row justify="space-between">
           <Col flex={1}>
-            <Image width={150} src={movie.poster.previewUrl} />
+            <Image width={width * 0.1} src={movie.poster.previewUrl} />
           </Col>
           <Col flex={6}>
             <Flex gap="small" vertical align="start">

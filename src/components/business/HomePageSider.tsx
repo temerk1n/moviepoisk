@@ -44,48 +44,57 @@ export const HomePageSider: FC = () => {
       style={{
         background: colorBgContainer,
         borderRadius: borderRadiusLG,
-        height: "55vh",
+        height: "fit-content",
+        width: "2rem",
         marginTop: "1rem",
         position: "fixed",
         overflow: "auto",
         padding: "1rem",
       }}
     >
-      <Flex vertical gap="large" justify="flex-start">
-        <Text>Страна</Text>
-        <Select
-          showSearch
-          value={filters.country}
-          placeholder="Страна"
-          onChange={getSelectHandler("country")}
-          options={mapOptions(countries)}
-          loading={isCountriesFetching}
-        />
-        <Text>Жанр</Text>
-        <Select
-          showSearch
-          value={filters.genre}
-          placeholder="Жанры"
-          onChange={getSelectHandler("genre")}
-          options={mapOptions(genres)}
-          loading={isGenresFetching}
-        />
-        <Text>Год релиза</Text>
-        <Select
-          showSearch
-          value={filters.year}
-          placeholder="Год"
-          onChange={getSelectHandler("year")}
-          options={yearOptions}
-        />
-        <Text>Возрастной рейтинг</Text>
-        <Select
-          showSearch
-          value={filters.ageRating}
-          placeholder="Возрастной рейтинг"
-          onChange={getSelectHandler("ageRating")}
-          options={ageRatingOptions}
-        />
+      <Flex vertical gap="large" justify="space-between">
+        <Flex vertical gap="small">
+          <Text>Страна</Text>
+          <Select
+            showSearch
+            value={filters.country}
+            placeholder="Страна"
+            onChange={getSelectHandler("country")}
+            options={mapOptions(countries)}
+            loading={isCountriesFetching}
+          />
+        </Flex>
+        <Flex vertical gap="small">
+          <Text>Жанр</Text>
+          <Select
+            showSearch
+            value={filters.genre}
+            placeholder="Жанры"
+            onChange={getSelectHandler("genre")}
+            options={mapOptions(genres)}
+            loading={isGenresFetching}
+          />
+        </Flex>
+        <Flex vertical gap="small">
+          <Text>Год релиза</Text>
+          <Select
+            showSearch
+            value={filters.year}
+            placeholder="Год"
+            onChange={getSelectHandler("year")}
+            options={yearOptions}
+          />
+        </Flex>
+        <Flex vertical gap="small">
+          <Text>Возрастной рейтинг</Text>
+          <Select
+            showSearch
+            value={filters.ageRating}
+            placeholder="Возрастной рейтинг"
+            onChange={getSelectHandler("ageRating")}
+            options={ageRatingOptions}
+          />
+        </Flex>
         <Button onClick={onResetFilters}>
           <Text>Очистить фильтры</Text>
         </Button>
