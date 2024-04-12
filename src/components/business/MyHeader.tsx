@@ -1,13 +1,22 @@
-import { Flex, Layout, Select, SelectProps, Typography } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import React, { CSSProperties, FC, useEffect, useState } from "react";
-import { useFiltersSelector } from "../../store/filtersSlice";
+import { Flex, Layout, Select, Typography } from "antd";
+import { Link } from "react-router-dom";
+import React, {
+  CSSProperties,
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import {
+  resetFilters,
+  setQuery,
+  useFiltersSelector,
+} from "../../store/filtersSlice";
 import { SearchOutlined } from "@ant-design/icons";
 import {
   addToHistory,
   useSearchHistorySelector,
 } from "../../store/searchHistorySlice";
-import { useLazyGetMovieByNameQuery } from "../../store/movieApi";
 import { useAppDispatch } from "../../store/store";
 import { useDebounce } from "../../utils/hooks/useDebounce";
 import { getQueryParams } from "../../utils/getQueryParams";
@@ -33,44 +42,35 @@ const headerTitleStyle: CSSProperties = {
 };
 
 export const MyHeader: FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const filters = useFiltersSelector();
   const searchHistory = useSearchHistorySelector();
 
-  const [options, setOptions] = useState<SelectProps["options"]>();
-
   const [movieName, setMovieName] = useState("");
   const debouncedMovieName = useDebounce(movieName);
-
-  const [trigger, result] = useLazyGetMovieByNameQuery();
 
   useEffect(() => {
     if (debouncedMovieName) {
       dispatch(addToHistory(debouncedMovieName));
+      dispatch(resetFilters());
+      dispatch(setQuery(debouncedMovieName));
+      // navigate(`/?page=1&limit=10&movieName=${debouncedMovieName}}`)
       console.log(searchHistory);
-      trigger(debouncedMovieName, true);
     }
-  }, [debouncedMovieName, dispatch]);
+  }, [debouncedMovieName]);
 
-  useEffect(() => {
-    setOptions(
-      result.data?.docs?.map((movie: any) => {
-        return { label: movie.name, value: movie.id };
-      }),
-    );
-  }, [result]);
-
-  const onChange = (value: string) => {
+  const onChange = useCallback((value: string) => {
     console.log("selected", value);
-    navigate("/movie/" + value);
-  };
+    setMovieName(value);
+  }, []);
 
   const onSearch = (value: string) => {
     setMovieName(value);
+
+    // navigate(`/?page=1&limit=10&movieName=${debouncedMovieName}}`)
     // console.log(value)
-    // trigger(value, true);
   };
 
   return (
@@ -79,25 +79,19 @@ export const MyHeader: FC = () => {
         <Link to={"/?" + getQueryParams(filters)}>
           <Title style={headerTitleStyle}>MOVIEPOISK</Title>
         </Link>
-        <div>
-          {/*<Input*/}
-          {/*  placeholder="Фильмы, сериалы"*/}
-          {/*  defaultValue=""*/}
-          {/*  onChange={onSearchChange}*/}
-          {/*  allowClear*/}
-          {/*  suffix={<SearchOutlined />}*/}
-          {/*/>*/}
+        <Flex>
           <Select
-            allowClear
-            // value={movieName}
             placeholder="Фильмы, сериалы"
-            suffixIcon={<SearchOutlined />}
-            showSearch
+            value={filters.query}
             onChange={onChange}
+            showSearch
             onSearch={onSearch}
-            options={options}
+            options={searchHistory.history.map((value) => {
+              return {label: value, value: value};
+            })}
+            suffixIcon={<SearchOutlined />}
           />
-        </div>
+        </Flex>
       </Flex>
     </Header>
   );

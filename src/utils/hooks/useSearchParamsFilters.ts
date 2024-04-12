@@ -1,5 +1,9 @@
 import { useEffect } from "react";
-import { addFilter, setPaginationParams } from "../../store/filtersSlice";
+import {
+  addFilter,
+  setPaginationParams,
+  setQuery,
+} from "../../store/filtersSlice";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch } from "../../store/store";
 
@@ -9,6 +13,10 @@ export const useSearchParamsFilters = (setSkipRequest: Function) => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
+
+    if (searchParams.has("query")) {
+      dispatch(setQuery(searchParams.get("query")!));
+    }
 
     if (searchParams.has("page") && searchParams.has("limit")) {
       dispatch(
@@ -39,6 +47,6 @@ export const useSearchParamsFilters = (setSkipRequest: Function) => {
         }),
       );
 
-    setSkipRequest(false);
+    // setSkipRequest(false);
   }, [dispatch, location.search, setSkipRequest]);
 };

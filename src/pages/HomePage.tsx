@@ -6,8 +6,8 @@ import { MyLayout } from "../components/business/MyLayout";
 import { useFiltersSelector } from "../store/filtersSlice";
 import { HomePageSider } from "../components/business/HomePageSider";
 import { useSearchParamsFilters } from "../utils/hooks/useSearchParamsFilters";
-import { useGetMoviesQuery } from "../store/movieApi";
 import { useSearchParamsUpdater } from "../utils/hooks/useSearchParamsUpdater";
+import { useGetMoviesWithFilters } from "../utils/hooks/useGetMoviesWithFilters";
 
 const { Content } = Layout;
 
@@ -16,7 +16,10 @@ export const HomePage: FC = () => {
 
   const [skipRequest, setSkipRequest] = useState(true);
 
-  const result = useGetMoviesQuery(filters, { skip: skipRequest });
+  // const result = useGetMoviesQuery(filters, { skip: skipRequest });
+
+  // @ts-ignore
+  const {data, isFetching, isError} = useGetMoviesWithFilters();
 
   useSearchParamsFilters(setSkipRequest);
   useSearchParamsUpdater();
@@ -28,11 +31,11 @@ export const HomePage: FC = () => {
           <HomePageSider />
           <Content style={{ marginLeft: "14rem" }}>
             <MovieCardList
-              movies={result.data?.docs}
-              totalPages={result.data?.pages}
-              isFetching={result.isFetching}
+              movies={data?.docs}
+              totalPages={data?.pages}
+              isFetching={isFetching}
             />
-            <ErrorAlert isError={result.isError} />
+            <ErrorAlert isError={isError} />
           </Content>
         </Layout>
       </Content>
