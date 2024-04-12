@@ -1,8 +1,13 @@
-import {createApi, FetchArgs, fetchBaseQuery, retry,} from "@reduxjs/toolkit/query/react";
-import {MovieResponse} from "../types/MovieResponse";
-import {ReviewsResponse} from "../types/ReviewsResponse";
-import {PostersResponse} from "../types/PostersResponse";
-import {MoviesQueryParams} from "../types/MoviesQueryParams";
+import {
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+  retry,
+} from "@reduxjs/toolkit/query/react";
+import { MovieResponse } from "../types/MovieResponse";
+import { ReviewsResponse } from "../types/ReviewsResponse";
+import { PostersResponse } from "../types/PostersResponse";
+import { MoviesQueryParams } from "../types/MoviesQueryParams";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://api.kinopoisk.dev/",
@@ -35,7 +40,7 @@ export const movieApi = createApi({
       },
       keepUnusedDataFor: 5 * 60,
     }),
-    getMovieByName: builder.query<MovieResponse, {movieName: string}>({
+    getMovieByName: builder.query<MovieResponse, { movieName: string }>({
       query: (movieName) => {
         return { url: `/v1.4/movie/search`, params: { query: movieName } };
       },

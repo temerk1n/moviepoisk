@@ -52,7 +52,7 @@ export const MyHeader: FC<MyHeaderProps> = ({ onSearchChange }) => {
     if (debouncedMovieName) {
       dispatch(addToHistory(debouncedMovieName));
       console.log(searchHistory);
-      trigger(debouncedMovieName, true);
+      trigger({ movieName: debouncedMovieName }, true);
     }
   }, [debouncedMovieName]);
 
