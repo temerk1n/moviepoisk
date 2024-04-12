@@ -5,13 +5,12 @@ import { Layout } from "antd";
 
 interface MyLayoutProps {
   children: ReactNode;
-  onSearchChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const MyLayout: FC<MyLayoutProps> = ({ children, onSearchChange }) => {
+export const MyLayout: FC<MyLayoutProps> = ({ children }) => {
   return (
     <Layout>
-      <MyHeader onSearchChange={onSearchChange} />
+      <MyHeader />
       {children}
       <MyFooter />
     </Layout>

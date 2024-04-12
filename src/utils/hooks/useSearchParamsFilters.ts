@@ -1,18 +1,15 @@
 import { useEffect } from "react";
-import {
-  addFilter,
-  filtersState,
-  setPaginationParams,
-} from "../../store/filtersSlice";
-import { store } from "../../store/store";
-import { useGetMoviesQuery } from "../../store/movieApi";
+import { addFilter, setPaginationParams } from "../../store/filtersSlice";
+import { useLocation } from "react-router-dom";
+import { useAppDispatch } from "../../store/store";
 
-export const useSearchParamsFilters = (
-  searchParams: URLSearchParams,
-  dispatch: typeof store.dispatch,
-  filters: filtersState,
-) => {
+export const useSearchParamsFilters = (setSkipRequest: Function) => {
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+
   useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+
     if (searchParams.has("page") && searchParams.has("limit")) {
       dispatch(
         setPaginationParams({
@@ -21,11 +18,11 @@ export const useSearchParamsFilters = (
         }),
       );
     }
-    if (searchParams.has("genres.name"))
+    if (searchParams.has("genre"))
       dispatch(
         addFilter({
-          name: "genres.name",
-          value: searchParams.get("genres.name")!,
+          name: "genre",
+          value: searchParams.get("genre")!,
         }),
       );
     if (searchParams.has("year"))
@@ -34,13 +31,14 @@ export const useSearchParamsFilters = (
       dispatch(
         addFilter({ name: "ageRating", value: searchParams.get("ageRating")! }),
       );
-    if (searchParams.has("countries.name"))
+    if (searchParams.has("country"))
       dispatch(
         addFilter({
-          name: "countries.name",
-          value: searchParams.get("countries.name")!,
+          name: "country",
+          value: searchParams.get("country")!,
         }),
       );
-  }, [searchParams, dispatch]);
-  return useGetMoviesQuery(filters);
+
+    setSkipRequest(false);
+  }, [dispatch, location.search, setSkipRequest]);
 };

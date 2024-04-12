@@ -1,88 +1,38 @@
-import { ChangeEvent, FC } from "react";
-import { MovieCardList } from "../components/ui/MovieCardList";
+import { FC, useState } from "react";
+import { MovieCardList } from "../components/business/MovieCardList";
 import { Layout } from "antd";
-import { useSearchParams } from "react-router-dom";
 import { ErrorAlert } from "../components/ui/ErrorAlert";
-import { MyLayout } from "../components/logic/MyLayout";
-import { addFilter, useFiltersSelector } from "../store/filtersSlice";
-import { useAppDispatch } from "../store/store";
-import { HomePageSider } from "../components/logic/HomePageSider";
-import { FilterName } from "../types/Filter";
+import { MyLayout } from "../components/business/MyLayout";
+import { useFiltersSelector } from "../store/filtersSlice";
+import { HomePageSider } from "../components/business/HomePageSider";
+import { useSearchParamsFilters } from "../utils/hooks/useSearchParamsFilters";
 import { useGetMoviesQuery } from "../store/movieApi";
-import { MoviesQueryParams } from "../types/MoviesQueryParams";
+import { useSearchParamsUpdater } from "../utils/hooks/useSearchParamsUpdater";
 
 const { Content } = Layout;
 
-// TODO: searchParams
-
 export const HomePage: FC = () => {
-  const dispatch = useAppDispatch();
   const filters = useFiltersSelector();
 
-  const [searchParams, setSearchParams] = useSearchParams({
-    page: "1",
-    limit: "10",
-  });
+  const [skipRequest, setSkipRequest] = useState(true);
 
-  // const { data, isFetching, isError } = useSearchParamsFilters(searchParams, dispatch, filters);
-  const queryParams: MoviesQueryParams = {
-    page: searchParams.has("page")
-      ? parseInt(searchParams.get("page")!)
-      : filters.page,
-    limit: searchParams.has("limit")
-      ? parseInt(searchParams.get("limit")!)
-      : filters.limit,
-    options: filters.options,
-  };
+  const result = useGetMoviesQuery(filters, { skip: skipRequest });
 
-  // TODO: переписать на lazy query
-  const { data, isFetching, isError } = useGetMoviesQuery(queryParams);
-
-  const onPageOrPageSizeChange = (page: number, pageSize: number) => {
-    // dispatch(setPaginationParams({ page: page, limit: pageSize }));
-
-    searchParams.set("page", page.toString());
-    searchParams.set("limit", pageSize.toString());
-    setSearchParams(searchParams);
-  };
-
-  const getSelectHandler = (name: FilterName) => {
-    return (value: string) => {
-      dispatch(addFilter({ name, value }));
-
-      searchParams.set(name, value);
-      setSearchParams(searchParams);
-    };
-  };
-
-  const getSelectClearHandler = (name: FilterName) => {
-    return () => {
-      searchParams.delete(name);
-      setSearchParams(searchParams);
-      // console.log(filters.options);
-    };
-  };
-
-  const onNameSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
+  useSearchParamsFilters(setSkipRequest);
+  useSearchParamsUpdater();
 
   return (
-    <MyLayout onSearchChange={onNameSearch}>
+    <MyLayout>
       <Content className="content">
         <Layout style={{ gap: "2rem" }}>
-          <HomePageSider
-            getSelectHandler={getSelectHandler}
-            getSelectClearHandler={getSelectClearHandler}
-          />
+          <HomePageSider />
           <Content style={{ marginLeft: "14rem" }}>
             <MovieCardList
-              movies={data?.docs}
-              totalPages={data?.pages}
-              isFetching={isFetching}
-              onPageOrPageSizeChange={onPageOrPageSizeChange}
+              movies={result.data?.docs}
+              totalPages={result.data?.pages}
+              isFetching={result.isFetching}
             />
-            <ErrorAlert isError={isError} />
+            <ErrorAlert isError={result.isError} />
           </Content>
         </Layout>
       </Content>

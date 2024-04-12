@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Flex, Image, Skeleton, Typography } from "antd";
 import { MovieDetailDescription } from "./MovieDetailDescription";
 import { MovieRating } from "./MovieRating";
-import { ActorsList } from "../logic/ActorsList";
+import { ActorsList } from "../business/ActorsList";
 import { MovieDetail } from "../../types/MovieDetail";
 
 const { Text } = Typography;

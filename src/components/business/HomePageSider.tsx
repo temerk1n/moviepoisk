@@ -1,34 +1,50 @@
-import { Flex, Layout, Select, theme } from "antd";
-import { FC } from "react";
+import { Button, Flex, Layout, Select, theme, Typography } from "antd";
+import { FC, useCallback } from "react";
 import { useGetFiltersPossibleValues } from "../../utils/hooks/useGetFiltersPossibleValues";
 import { mapOptions } from "../../utils/mapOptions";
 import { ageRatingOptions, yearOptions } from "../../constants";
 import { FilterName } from "../../types/Filter";
+import {
+  addFilter,
+  resetFilters,
+  useFiltersSelector,
+} from "../../store/filtersSlice";
+import { useAppDispatch } from "../../store/store";
 
 const { Sider } = Layout;
 
-interface HomePageSiderProps {
-  getSelectHandler: (name: FilterName) => (value: string) => void;
-  getSelectClearHandler: (name: FilterName) => () => void;
-}
+const { Text } = Typography;
 
-export const HomePageSider: FC<HomePageSiderProps> = ({
-  getSelectHandler,
-  getSelectClearHandler,
-}) => {
+export const HomePageSider: FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const dispatch = useAppDispatch();
+  const filters = useFiltersSelector();
+
   const { countries, isCountriesFetching, genres, isGenresFetching } =
     useGetFiltersPossibleValues();
+
+  const getSelectHandler = useCallback(
+    (name: FilterName) => {
+      return (value: string) => {
+        dispatch(addFilter({ name, value }));
+      };
+    },
+    [dispatch],
+  );
+
+  const onResetFilters = useCallback(() => {
+    dispatch(resetFilters());
+  }, [dispatch]);
 
   return (
     <Sider
       style={{
         background: colorBgContainer,
         borderRadius: borderRadiusLG,
-        height: "50vh",
+        height: "55vh",
         marginTop: "1rem",
         position: "fixed",
         overflow: "auto",
@@ -36,40 +52,43 @@ export const HomePageSider: FC<HomePageSiderProps> = ({
       }}
     >
       <Flex vertical gap="large" justify="flex-start">
+        <Text>Страна</Text>
         <Select
           showSearch
-          allowClear
-          onClear={getSelectClearHandler("countries.name")}
+          value={filters.country}
           placeholder="Страна"
-          onChange={getSelectHandler("countries.name")}
+          onChange={getSelectHandler("country")}
           options={mapOptions(countries)}
           loading={isCountriesFetching}
         />
+        <Text>Жанр</Text>
         <Select
           showSearch
-          allowClear
-          onClear={getSelectClearHandler("genres.name")}
+          value={filters.genre}
           placeholder="Жанры"
-          onChange={getSelectHandler("genres.name")}
+          onChange={getSelectHandler("genre")}
           options={mapOptions(genres)}
           loading={isGenresFetching}
         />
+        <Text>Год релиза</Text>
         <Select
           showSearch
-          allowClear
-          onClear={getSelectClearHandler("year")}
+          value={filters.year}
           placeholder="Год"
           onChange={getSelectHandler("year")}
           options={yearOptions}
         />
+        <Text>Возрастной рейтинг</Text>
         <Select
           showSearch
-          allowClear
-          onClear={getSelectClearHandler("ageRating")}
+          value={filters.ageRating}
           placeholder="Возрастной рейтинг"
           onChange={getSelectHandler("ageRating")}
           options={ageRatingOptions}
         />
+        <Button onClick={onResetFilters}>
+          <Text>Очистить фильтры</Text>
+        </Button>
       </Flex>
     </Sider>
   );

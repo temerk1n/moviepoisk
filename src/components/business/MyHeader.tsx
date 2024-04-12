@@ -1,4 +1,4 @@
-import { Flex, Layout, Select, Typography } from "antd";
+import { Flex, Layout, Select, SelectProps, Typography } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import React, { CSSProperties, FC, useEffect, useState } from "react";
 import { useFiltersSelector } from "../../store/filtersSlice";
@@ -10,6 +10,7 @@ import {
 import { useLazyGetMovieByNameQuery } from "../../store/movieApi";
 import { useAppDispatch } from "../../store/store";
 import { useDebounce } from "../../utils/hooks/useDebounce";
+import { getQueryParams } from "../../utils/getQueryParams";
 
 const { Header } = Layout;
 const { Title } = Typography;
@@ -31,16 +32,14 @@ const headerTitleStyle: CSSProperties = {
   lineHeight: "1.5rem",
 };
 
-interface MyHeaderProps {
-  onSearchChange: React.ChangeEventHandler<HTMLInputElement>;
-}
-
-export const MyHeader: FC<MyHeaderProps> = ({ onSearchChange }) => {
+export const MyHeader: FC = () => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const filters = useFiltersSelector();
   const searchHistory = useSearchHistorySelector();
+
+  const [options, setOptions] = useState<SelectProps["options"]>();
 
   const [movieName, setMovieName] = useState("");
   const debouncedMovieName = useDebounce(movieName);
@@ -48,23 +47,20 @@ export const MyHeader: FC<MyHeaderProps> = ({ onSearchChange }) => {
   const [trigger, result] = useLazyGetMovieByNameQuery();
 
   useEffect(() => {
-    console.log(debouncedMovieName);
     if (debouncedMovieName) {
       dispatch(addToHistory(debouncedMovieName));
       console.log(searchHistory);
-      trigger({ movieName: debouncedMovieName }, true);
+      trigger(debouncedMovieName, true);
     }
-  }, [debouncedMovieName]);
+  }, [debouncedMovieName, dispatch]);
 
-  const getQueryParams = () => {
-    return `/?page=${filters.page}&limit=${filters.limit}&${Object.values(
-      filters.options,
-    )
-      .map((filter) => {
-        return `${filter.name}=${filter.value}`;
-      })
-      .join("&")}`;
-  };
+  useEffect(() => {
+    setOptions(
+      result.data?.docs?.map((movie: any) => {
+        return { label: movie.name, value: movie.id };
+      }),
+    );
+  }, [result]);
 
   const onChange = (value: string) => {
     console.log("selected", value);
@@ -80,7 +76,7 @@ export const MyHeader: FC<MyHeaderProps> = ({ onSearchChange }) => {
   return (
     <Header style={headerStyle}>
       <Flex style={headerContentStyle} justify="space-between" align="center">
-        <Link to={getQueryParams()}>
+        <Link to={"/?" + getQueryParams(filters)}>
           <Title style={headerTitleStyle}>MOVIEPOISK</Title>
         </Link>
         <div>
@@ -99,9 +95,7 @@ export const MyHeader: FC<MyHeaderProps> = ({ onSearchChange }) => {
             showSearch
             onChange={onChange}
             onSearch={onSearch}
-            options={result.data?.docs?.map((movie: any) => {
-              return { label: movie.name, value: movie.id };
-            })}
+            options={options}
           />
         </div>
       </Flex>

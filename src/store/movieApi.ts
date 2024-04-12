@@ -18,8 +18,7 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-// TODO: change maxRetries to 2
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 0 });
+const baseQueryWithRetry = retry(baseQuery, { maxRetries: 2 });
 
 export const movieApi = createApi({
   reducerPath: "movieApi",
@@ -28,19 +27,19 @@ export const movieApi = createApi({
   endpoints: (builder) => ({
     getMovies: builder.query<MovieResponse, MoviesQueryParams>({
       query: (queryParams): FetchArgs => {
-        const params: any = {
+        const params = {
           page: queryParams.page,
           limit: queryParams.limit,
+          "genres.name": queryParams.genre,
+          "countries.name": queryParams.country,
+          year: queryParams.year,
+          ageRating: queryParams.ageRating,
         };
-        queryParams.options.forEach((filter) => {
-          params[filter.name] = filter.value;
-        });
-
         return { url: "/v1.4/movie", params };
       },
       keepUnusedDataFor: 5 * 60,
     }),
-    getMovieByName: builder.query<MovieResponse, { movieName: string }>({
+    getMovieByName: builder.query<MovieResponse, string>({
       query: (movieName) => {
         return { url: `/v1.4/movie/search`, params: { query: movieName } };
       },
@@ -76,6 +75,7 @@ export const movieApi = createApi({
 
 export const {
   useGetMoviesQuery,
+  useLazyGetMoviesQuery,
   useLazyGetMovieByNameQuery,
   useGetMovieByIdQuery,
   useGetReviewsByMovieIdQuery,

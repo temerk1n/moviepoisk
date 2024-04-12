@@ -1,6 +1,3 @@
-import { Filter } from "./Filter";
-import { PaginationParams } from "./PaginationParams";
+import { FiltersState } from "../store/filtersSlice";
 
-export type MoviesQueryParams = PaginationParams & {
-  options: Filter[];
-};
+export type MoviesQueryParams = FiltersState;

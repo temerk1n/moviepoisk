@@ -1,10 +1,10 @@
 import { Layout } from "antd";
 import { useParams } from "react-router-dom";
-import { MovieDetailCard } from "../components/logic/MovieDetailCard";
+import { MovieDetailCard } from "../components/business/MovieDetailCard";
 import { useGetMovieByIdQuery } from "../store/movieApi";
 import { ErrorAlert } from "../components/ui/ErrorAlert";
 import { FC } from "react";
-import { MyLayout } from "../components/logic/MyLayout";
+import { MyLayout } from "../components/business/MyLayout";
 
 const { Content } = Layout;
 
@@ -14,11 +14,7 @@ export const MoviePage: FC = () => {
   const { data: movie, isFetching, isError } = useGetMovieByIdQuery(movieId);
 
   return (
-    <MyLayout
-      onSearchChange={(e) => {
-        console.log(e.target.value);
-      }}
-    >
+    <MyLayout>
       <Content className="content">
         <MovieDetailCard
           movie={movie}

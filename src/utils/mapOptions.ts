@@ -1,12 +1,20 @@
 import { SelectProps } from "antd";
 
-export const mapOptions = (
-  options: { name: string }[],
-): SelectProps["options"] => {
-  return options?.map((option) => {
-    return {
-      label: option.name.charAt(0).toUpperCase() + option.name.slice(1),
-      value: option.name,
-    };
-  });
+interface Option {
+  name: string;
+}
+
+const formatLabel = (label: string) => {
+  return label.charAt(0).toUpperCase() + label.slice(1);
+};
+
+const formatOption = (option: Option) => {
+  return {
+    label: formatLabel(option.name),
+    value: option.name,
+  };
+};
+
+export const mapOptions = (options: Option[]): SelectProps["options"] => {
+  return options?.map(formatOption);
 };

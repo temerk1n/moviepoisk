@@ -28,7 +28,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
               </Link>
               <Text>
                 {movie.alternativeName ? `${movie.alternativeName}, ` : " "}
-                {movie.type === "tv-series"
+                {movie.isSeries
                   ? `${movie.releaseYears[0]?.start}-${movie.releaseYears[0]?.end}, ${movie.seriesLength} серий`
                   : `${movie.year}, ${movie.movieLength} мин.`}
               </Text>

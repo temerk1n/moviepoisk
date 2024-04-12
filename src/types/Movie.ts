@@ -22,5 +22,6 @@ export type Movie = {
   poster: Poster;
   countries: Country[];
   releaseYears: ReleaseYears[];
+  isSeries: boolean;
   seriesLength: number | null;
 };
