@@ -1,14 +1,22 @@
 import { useEffect } from "react";
-import { addFilter, setPaginationParams } from "../../store/filtersSlice";
+import {
+  addFilter,
+  setPaginationParams,
+  setQuery,
+} from "../../store/filtersSlice";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch } from "../../store/store";
 
-export const useSearchParamsFilters = (setSkipRequest: Function) => {
+export const useSearchParamsFilters = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
+
+    if (searchParams.has("query")) {
+      dispatch(setQuery(searchParams.get("query")!));
+    }
 
     if (searchParams.has("page") && searchParams.has("limit")) {
       dispatch(
@@ -38,7 +46,5 @@ export const useSearchParamsFilters = (setSkipRequest: Function) => {
           value: searchParams.get("country")!,
         }),
       );
-
-    setSkipRequest(false);
-  }, [dispatch, location.search, setSkipRequest]);
+  }, [dispatch, location.search]);
 };

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useAppSelector } from "./store";
-import { Filter, FilterName } from "../types/Filter";
+import { Filter } from "../types/Filter";
 import { PaginationParams } from "../types/PaginationParams";
 
 export type FiltersState = PaginationParams & {
@@ -8,6 +8,7 @@ export type FiltersState = PaginationParams & {
   country?: string;
   ageRating?: string;
   year?: string;
+  query?: string;
 };
 
 const initialState: FiltersState = {
@@ -24,20 +25,19 @@ export const filtersSlice = createSlice({
       state.limit = action.payload.limit;
     },
     addFilter: (state, action: PayloadAction<Filter>) => {
+      if (state.query) delete state.query;
       const { payload } = action;
       state[payload.name] = payload.value;
     },
-    deleteFilter: (state, action: PayloadAction<{ name: FilterName }>) => {
-      const { payload } = action;
-      delete state[payload.name];
-      return state;
+    setQuery: (state, action: PayloadAction<string>) => {
+      state.query = action.payload;
     },
     resetFilters: (state) => (state = initialState),
   },
 });
 
 export default filtersSlice.reducer;
-export const { setPaginationParams, addFilter, deleteFilter, resetFilters } =
+export const { setPaginationParams, addFilter, resetFilters, setQuery } =
   filtersSlice.actions;
 export const useFiltersSelector = () =>
   useAppSelector((state) => state.filters);

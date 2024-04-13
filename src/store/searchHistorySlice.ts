@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useAppSelector } from "./store";
 
 export type SearchHistoryState = {
-  history: { name: string }[];
+  history: string[];
 };
 
 const initialState: SearchHistoryState = {
