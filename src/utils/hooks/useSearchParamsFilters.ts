@@ -7,7 +7,7 @@ import {
 import { useLocation } from "react-router-dom";
 import { useAppDispatch } from "../../store/store";
 
-export const useSearchParamsFilters = (setSkipRequest: Function) => {
+export const useSearchParamsFilters = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
@@ -46,7 +46,5 @@ export const useSearchParamsFilters = (setSkipRequest: Function) => {
           value: searchParams.get("country")!,
         }),
       );
-
-    // setSkipRequest(false);
-  }, [dispatch, location.search, setSkipRequest]);
+  }, [dispatch, location.search]);
 };

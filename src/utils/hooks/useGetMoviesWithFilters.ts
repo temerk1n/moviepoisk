@@ -1,6 +1,9 @@
-import {useLazyGetMovieByNameQuery, useLazyGetMoviesQuery,} from "../../store/movieApi";
-import {useFiltersSelector} from "../../store/filtersSlice";
-import {useEffect} from "react";
+import {
+  useLazyGetMovieByNameQuery,
+  useLazyGetMoviesQuery,
+} from "../../store/movieApi";
+import { useFiltersSelector } from "../../store/filtersSlice";
+import { useEffect } from "react";
 
 export const useGetMoviesWithFilters = () => {
   const filters = useFiltersSelector();
