@@ -21,7 +21,13 @@ export const ErrorAlert: FC<ErrorAlertProps> = ({
 }) => {
   return isError ? (
     createPortal(
-      <Alert type="error" showIcon closable style={errorAlertStyle} message={message} />,
+      <Alert
+        type="error"
+        showIcon
+        closable
+        style={errorAlertStyle}
+        message={message}
+      />,
       document.body,
     )
   ) : (

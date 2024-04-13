@@ -28,9 +28,7 @@ export const MovieDetailDescription = ({
       <Paragraph>
         {movie?.description ? movie.description : "Нет описания"}
       </Paragraph>
-      <Title
-        level={3}
-      >{`О ${movie?.isSeries ? "сериале" : "фильме"}`}</Title>
+      <Title level={3}>{`О ${movie?.isSeries ? "сериале" : "фильме"}`}</Title>
       <MovieDetailDescriptionItem
         title="Год производства"
         description={movie?.year}
