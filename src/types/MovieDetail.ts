@@ -7,3 +7,5 @@ export type MovieDetail = {
   persons: Person[];
   slogan: string | null;
 } & Movie;
+
+export type MovieDetailKeys = keyof MovieDetail;

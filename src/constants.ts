@@ -1,8 +1,10 @@
 import { SelectProps } from "antd";
+import { MovieKeys } from "./types/Movie";
+import { MovieDetailKeys } from "./types/MovieDetail";
 
 export const imageScaleFactor: number = 0.3;
 
-export const getAllMoviesSelectFields: string[] = [
+export const getAllMoviesSelectFields: MovieKeys[] = [
   "id",
   "name",
   "alternativeName",
@@ -16,10 +18,10 @@ export const getAllMoviesSelectFields: string[] = [
   "countries",
   "releaseYears",
   "isSeries",
-  "seriesLength",
+  "seasonsInfo",
 ];
 
-export const getMovieDetailFields: string[] = [
+export const getMovieDetailFields: MovieDetailKeys[] = [
   ...getAllMoviesSelectFields,
   "description",
   "similarMovies",
