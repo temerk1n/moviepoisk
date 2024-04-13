@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
-import { MyHeader } from "./MyHeader";
-import { MyFooter } from "../ui/MyFooter";
+import { MyHeader } from "../business/MyHeader";
+import { MyFooter } from "./MyFooter";
 import { Layout } from "antd";
 
 interface MyLayoutProps {

@@ -4,7 +4,7 @@ import { MovieDetailCard } from "../components/business/MovieDetailCard";
 import { useGetMovieByIdQuery } from "../store/movieApi";
 import { ErrorAlert } from "../components/ui/ErrorAlert";
 import { FC } from "react";
-import { MyLayout } from "../components/business/MyLayout";
+import { MyLayout } from "../components/ui/MyLayout";
 
 const { Content } = Layout;
 

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { MovieCardList } from "../components/business/MovieCardList";
 import { Layout } from "antd";
 import { ErrorAlert } from "../components/ui/ErrorAlert";
-import { MyLayout } from "../components/business/MyLayout";
+import { MyLayout } from "../components/ui/MyLayout";
 import { HomePageSider } from "../components/business/HomePageSider";
 import { useSearchParamsFilters } from "../utils/hooks/useSearchParamsFilters";
 import { useSearchParamsUpdater } from "../utils/hooks/useSearchParamsUpdater";
