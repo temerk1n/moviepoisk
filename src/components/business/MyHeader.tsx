@@ -56,22 +56,27 @@ export const MyHeader: FC = () => {
       dispatch(addToHistory(debouncedMovieName));
       dispatch(resetFilters());
       dispatch(setQuery(debouncedMovieName));
-      navigate(`/?page=1&limit=10&movieName=${debouncedMovieName}}`)
+      navigate(`/?page=1&limit=10&movieName=${debouncedMovieName}}`);
       console.log(searchHistory);
     }
   }, [debouncedMovieName]);
 
-  const onChange = useCallback((value: string) => {
-    console.log("selected", value);
-    setMovieName(value);
-  }, []);
+  const onChange = useCallback(
+    (value: string) => {
+      console.log("selected", value);
+      setMovieName(value);
+    },
+    [setMovieName],
+  );
 
-  const onSearch = (value: string) => {
-    setMovieName(value);
+  const onSearch = useCallback(
+    (value: string) => {
+      setMovieName(value);
+    },
+    [setMovieName],
+  );
 
-    // navigate(`/?page=1&limit=10&movieName=${debouncedMovieName}}`)
-    // console.log(value)
-  };
+  const onClear = useCallback(() => dispatch(resetFilters()), [dispatch]);
 
   return (
     <Header style={headerStyle}>
@@ -85,9 +90,11 @@ export const MyHeader: FC = () => {
             value={filters.query}
             onChange={onChange}
             showSearch
+            allowClear
+            onClear={onClear}
             onSearch={onSearch}
             options={searchHistory.history.map((value) => {
-              return {label: value, value: value};
+              return { label: value, value: value };
             })}
             suffixIcon={<SearchOutlined />}
           />
