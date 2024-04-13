@@ -1,5 +1,5 @@
 import { Movie } from "../../types/Movie";
-import { Card, Col, Flex, Image, List, Row, Typography } from "antd";
+import { Card, Flex, Image, List, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { MovieRating } from "./MovieRating";
 import { FC } from "react";
@@ -18,12 +18,12 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
   return (
     <List.Item key={movie.id}>
       <Card bordered={false}>
-        <Row justify="space-between">
-          <Col flex={1}>
+        <Flex gap="middle" wrap={"wrap"}>
+          <Flex>
             <Image width={width * 0.1} src={movie.poster.previewUrl} />
-          </Col>
-          <Col flex={6}>
-            <Flex gap="small" vertical align="start">
+          </Flex>
+          <Flex flex={1} wrap="wrap">
+            <Flex gap="small" vertical align="flex-start">
               <Link to={`/movie/${movie.id}`}>
                 <Title level={2} className="card-title">
                   {movie.name ? movie.name : movie.alternativeName}
@@ -41,8 +41,8 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
               </Text>
               <Paragraph>{movie.shortDescription}</Paragraph>
             </Flex>
-          </Col>
-          <Col flex={2}>
+          </Flex>
+          <Flex wrap="wrap">
             <Flex justify="flex-end">
               {movie.rating.kp ? (
                 <MovieRating rating={movie.rating.kp} />
@@ -50,8 +50,8 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
                 <></>
               )}
             </Flex>
-          </Col>
-        </Row>
+          </Flex>
+        </Flex>
       </Card>
     </List.Item>
   );
