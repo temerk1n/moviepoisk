@@ -8,6 +8,7 @@ import { MovieResponse } from "../types/MovieResponse";
 import { ReviewsResponse } from "../types/ReviewsResponse";
 import { PostersResponse } from "../types/PostersResponse";
 import { MoviesQueryParams } from "../types/MoviesQueryParams";
+import { getAllMoviesSelectFields, getMovieDetailFields } from "../constants";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://api.kinopoisk.dev/",
@@ -27,21 +28,26 @@ export const movieApi = createApi({
   endpoints: (builder) => ({
     getMovies: builder.query<MovieResponse, MoviesQueryParams>({
       query: (queryParams): FetchArgs => {
-        const params = {
-          page: queryParams.page,
-          limit: queryParams.limit,
-          "genres.name": queryParams.genre,
-          "countries.name": queryParams.country,
-          year: queryParams.year,
-          ageRating: queryParams.ageRating,
-        };
+        const params: URLSearchParams = new URLSearchParams();
+        params.append("page", queryParams.page.toString());
+        params.append("limit", queryParams.limit.toString());
+        if (queryParams.genre) params.append("genres.name", queryParams.genre);
+        if (queryParams.ageRating)
+          params.append("ageRating", queryParams.ageRating);
+        if (queryParams.year) params.append("year", queryParams.year);
+        if (queryParams.query) params.append("query", queryParams.query);
+        for (const field of getAllMoviesSelectFields)
+          params.append("selectFields", field);
         return { url: "/v1.4/movie", params };
       },
       keepUnusedDataFor: 5 * 60,
     }),
     getMovieByName: builder.query<MovieResponse, string>({
       query: (movieName) => {
-        return { url: `/v1.4/movie/search`, params: { query: movieName } };
+        const params = new URLSearchParams(movieName);
+        for (const field of getMovieDetailFields)
+          params.append("selectFields", field);
+        return { url: `/v1.4/movie/search`, params };
       },
     }),
     getMovieById: builder.query({

@@ -1,6 +1,31 @@
 import { SelectProps } from "antd";
 
-export const imageScaleFactor: number = 0.4;
+export const imageScaleFactor: number = 0.3;
+
+export const getAllMoviesSelectFields: string[] = [
+  "id",
+  "name",
+  "alternativeName",
+  "shortDescription",
+  "ageRating",
+  "year",
+  "movieLength",
+  "rating",
+  "genres",
+  "poster",
+  "countries",
+  "releaseYears",
+  "isSeries",
+  "seriesLength",
+];
+
+export const getMovieDetailFields: string[] = [
+  ...getAllMoviesSelectFields,
+  "description",
+  "similarMovies",
+  "persons",
+  "slogan",
+];
 
 const calculateYearOptions = (): SelectProps["options"] => {
   const result: SelectProps["options"] = [];
