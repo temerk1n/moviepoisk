@@ -57,9 +57,8 @@ export const MyHeader: FC = () => {
       dispatch(resetFilters());
       dispatch(setQuery(debouncedMovieName));
       navigate(`/?page=1&limit=10&movieName=${debouncedMovieName}}`);
-      console.log(searchHistory);
     }
-  }, [debouncedMovieName]);
+  }, [debouncedMovieName, dispatch, navigate, searchHistory]);
 
   const onChange = useCallback(
     (value: string) => {
