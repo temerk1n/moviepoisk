@@ -30,12 +30,12 @@ export const MovieDetailDescription = ({
       </Paragraph>
       <Title
         level={3}
-      >{`О ${movie?.type === "movie" ? "фильме" : "сериале"}`}</Title>
+      >{`О ${movie?.isSeries ? "сериале" : "фильме"}`}</Title>
       <MovieDetailDescriptionItem
         title="Год производства"
         description={movie?.year}
       />
-      {movie?.type === "movie" && (
+      {!movie?.isSeries && (
         <MovieDetailDescriptionItem
           title="Продолжительность"
           description={`${movie?.movieLength} мин.`}

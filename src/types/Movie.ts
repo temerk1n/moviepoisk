@@ -10,7 +10,6 @@ export type ReleaseYears = {
 
 export type Movie = {
   id: number;
-  type: string;
   name: string | null;
   alternativeName: string | null;
   shortDescription: string | null;
