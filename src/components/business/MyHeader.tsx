@@ -63,7 +63,6 @@ export const MyHeader: FC = () => {
 
   const onChange = useCallback(
     (value: string) => {
-      console.log("selected", value);
       setMovieName(value);
     },
     [setMovieName],
