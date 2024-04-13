@@ -9,7 +9,8 @@ interface ErrorAlertProps {
 
 const errorAlertStyle: CSSProperties = {
   position: "absolute",
-  bottom: "50px",
+  zIndex: 1,
+  top: "80px",
   right: "50px",
 };
 
@@ -20,7 +21,7 @@ export const ErrorAlert: FC<ErrorAlertProps> = ({
 }) => {
   return isError ? (
     createPortal(
-      <Alert type="error" showIcon style={errorAlertStyle} message={message} />,
+      <Alert type="error" showIcon closable style={errorAlertStyle} message={message} />,
       document.body,
     )
   ) : (

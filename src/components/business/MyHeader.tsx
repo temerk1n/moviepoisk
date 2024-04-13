@@ -1,9 +1,10 @@
 import { Flex, Layout, Typography } from "antd";
 import { Link } from "react-router-dom";
-import React, { CSSProperties, FC } from "react";
+import { CSSProperties, FC } from "react";
 import { useFiltersSelector } from "../../store/filtersSlice";
 import { getQueryParams } from "../../utils/getQueryParams";
 import { SearchMovieInput } from "./SearchMovieInput";
+import { useResize } from "../../utils/hooks/useResize";
 
 const { Header } = Layout;
 const { Title } = Typography;
@@ -14,33 +15,30 @@ const headerStyle: CSSProperties = {
   position: "sticky",
   top: 0,
   zIndex: 1,
-};
-
-const headerContentStyle: CSSProperties = {
-  paddingInline: "2rem",
+  display: "flex",
 };
 
 const headerTitleStyle: CSSProperties = {
   color: "white",
-  lineHeight: "1.5rem",
+  fontSize: "1.8rem",
 };
-
-const containerStyle: CSSProperties = { minWidth: 200 };
-
 
 export const MyHeader: FC = () => {
   const filters = useFiltersSelector();
+  const width = useResize();
 
   return (
     <Header style={headerStyle}>
-      <Flex style={headerContentStyle} justify="space-between" align="center">
-        <Link to={"/?" + getQueryParams(filters)}>
-          <Title style={headerTitleStyle} level={2} ellipsis={true}>
-            MOVIEPOISK
-          </Title>
-        </Link>
-        <Flex style={containerStyle}>
-          <SearchMovieInput/>
+      <Flex justify="space-between" align="center" flex={1}>
+        <Flex>
+          <Link to={"/?" + getQueryParams(filters)}>
+            <Title style={headerTitleStyle} level={1} ellipsis>
+              MOVIEPOISK
+            </Title>
+          </Link>
+        </Flex>
+        <Flex style={{ width: "fit-content", minWidth: width * 0.15 }}>
+          <SearchMovieInput />
         </Flex>
       </Flex>
     </Header>

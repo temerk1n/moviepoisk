@@ -20,7 +20,6 @@ import {
 } from "../../store/searchHistorySlice";
 import { useDebounce } from "../../utils/hooks/useDebounce";
 
-
 const selectStyle: CSSProperties = { flexGrow: 1 };
 
 export const SearchMovieInput: FC = () => {
@@ -73,5 +72,5 @@ export const SearchMovieInput: FC = () => {
       })}
       suffixIcon={<SearchOutlined />}
     />
-  )
-}
+  );
+};
