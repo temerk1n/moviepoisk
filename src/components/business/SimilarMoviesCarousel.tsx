@@ -28,8 +28,8 @@ export const SimilarMoviesCarousel: FC<SimilarMoviesCarouselProps> = ({
       <Title level={3}>Похожие фильмы</Title>
       {isFetching ? (
         <Skeleton.Image style={getSkeletonImageStyle(width)} />
-      ) : similarMovies.length === 0 ? (
-        <Text>Постеров нет</Text>
+      ) : similarMovies?.length === 0 ? (
+        <Text>Похожих фильмов нет</Text>
       ) : (
         <Carousel
           autoplay
@@ -37,7 +37,7 @@ export const SimilarMoviesCarousel: FC<SimilarMoviesCarouselProps> = ({
           dotPosition="top"
           style={getCarouselStyle(width)}
         >
-          {similarMoviesList}
+          {similarMoviesList ?? []}
         </Carousel>
       )}
     </Flex>

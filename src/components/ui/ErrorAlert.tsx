@@ -14,7 +14,6 @@ const errorAlertStyle: CSSProperties = {
   right: "50px",
 };
 
-// TODO: поменять положение
 export const ErrorAlert: FC<ErrorAlertProps> = ({
   isError,
   message = "Something went wrong",

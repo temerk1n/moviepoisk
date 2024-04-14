@@ -1,10 +1,10 @@
 import { Flex, Layout, Typography } from "antd";
-import { Link } from "react-router-dom";
 import { CSSProperties, FC } from "react";
 import { useFiltersSelector } from "../../store/filtersSlice";
-import { getQueryParams } from "../../utils/getQueryParams";
-import { SearchMovieInput } from "./SearchMovieInput";
 import { useResize } from "../../utils/hooks/useResize";
+import { SearchMovieInput } from "./SearchMovieInput";
+import { Link } from "react-router-dom";
+import { getQueryParams } from "../../utils/getQueryParams";
 
 const { Header } = Layout;
 const { Title } = Typography;

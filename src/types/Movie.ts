@@ -23,7 +23,7 @@ export type Movie = {
   countries: Country[];
   releaseYears: ReleaseYears[];
   isSeries: boolean;
-  seasonsInfo: Season[];
+  seasonsInfo: Season[] | [];
 };
 
 export type MovieKeys = keyof Movie;

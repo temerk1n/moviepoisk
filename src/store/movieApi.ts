@@ -8,7 +8,8 @@ import { MovieResponse } from "../types/MovieResponse";
 import { ReviewsResponse } from "../types/ReviewsResponse";
 import { PostersResponse } from "../types/PostersResponse";
 import { MoviesQueryParams } from "../types/MoviesQueryParams";
-import { getAllMoviesSelectFields, getMovieDetailFields } from "../constants";
+import { getAllMoviesSelectFields } from "../constants";
+import { MovieDetail } from "../types/MovieDetail";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://api.kinopoisk.dev/",
@@ -32,6 +33,8 @@ export const movieApi = createApi({
         params.append("page", queryParams.page.toString());
         params.append("limit", queryParams.limit.toString());
         if (queryParams.genre) params.append("genres.name", queryParams.genre);
+        if (queryParams.country)
+          params.append("countries.name", queryParams.country);
         if (queryParams.ageRating)
           params.append("ageRating", queryParams.ageRating);
         if (queryParams.year) params.append("year", queryParams.year);
@@ -44,14 +47,11 @@ export const movieApi = createApi({
     }),
     getMovieByName: builder.query<MovieResponse, string>({
       query: (movieName) => {
-        const params = new URLSearchParams(movieName);
-        for (const field of getMovieDetailFields)
-          params.append("selectFields", field);
-        return { url: `/v1.4/movie/search`, params };
+        return { url: `/v1.4/movie/search`, params: { query: movieName } };
       },
     }),
-    getMovieById: builder.query({
-      query: (movieId) => `/v1.4/movie/${movieId}`,
+    getMovieById: builder.query<MovieDetail, { movieId: string }>({
+      query: (query) => `/v1.4/movie/${query.movieId}`,
       keepUnusedDataFor: 5 * 60,
     }),
     getReviewsByMovieId: builder.query<
@@ -80,11 +80,10 @@ export const movieApi = createApi({
 });
 
 export const {
-  useGetMoviesQuery,
   useLazyGetMoviesQuery,
   useLazyGetMovieByNameQuery,
-  useGetMovieByIdQuery,
-  useGetReviewsByMovieIdQuery,
-  useGetPostersByMovieIdQuery,
+  useLazyGetMovieByIdQuery,
+  useLazyGetReviewsByMovieIdQuery,
+  useLazyGetPostersByMovieIdQuery,
   useGetPossibleValuesQuery,
 } = movieApi;

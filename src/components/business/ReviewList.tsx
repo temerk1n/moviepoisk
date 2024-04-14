@@ -3,17 +3,20 @@ import { PaginationConfig } from "antd/lib/pagination";
 import { Review } from "../../types/Review";
 import { ReviewItem } from "../ui/ReviewItem";
 import { usePagination } from "../../utils/hooks/usePagination";
-import { useGetReviewsByMovieIdQuery } from "../../store/movieApi";
+import { useLazyGetReviewsByMovieIdQuery } from "../../store/movieApi";
 import { useParams } from "react-router-dom";
 import { FC } from "react";
+import { useRequestTriggerWithAbort } from "../../utils/hooks/useRequestTriggerWithAbort";
 
 export const ReviewList: FC = () => {
   const { movieId } = useParams();
   const [currentPage, onPageChange] = usePagination();
 
-  const { data, isFetching } = useGetReviewsByMovieIdQuery({
-    movieId,
-    page: currentPage,
+  const [trigger, { data, isFetching }] = useLazyGetReviewsByMovieIdQuery();
+
+  useRequestTriggerWithAbort(trigger, {
+    movieId: movieId!,
+    page: currentPage.toString(),
   });
 
   const reviews = data?.docs;

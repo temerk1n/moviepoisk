@@ -2,16 +2,25 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "../pages/HomePage";
 import { MoviePage } from "../pages/MoviePage";
 import { ErrorPage } from "../pages/ErrorPage";
+import { MyLayout } from "../components/ui/MyLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <MyLayout>
+        <HomePage />
+      </MyLayout>
+    ),
     errorElement: <ErrorPage />,
   },
   {
     path: "movie/:movieId",
-    element: <MoviePage />,
+    element: (
+      <MyLayout>
+        <MoviePage />
+      </MyLayout>
+    ),
     errorElement: <ErrorPage />,
   },
 ]);

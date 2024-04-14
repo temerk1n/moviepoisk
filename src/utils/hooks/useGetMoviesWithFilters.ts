@@ -1,28 +1,35 @@
-import {
-  useLazyGetMovieByNameQuery,
-  useLazyGetMoviesQuery,
-} from "../../store/movieApi";
 import { useFiltersSelector } from "../../store/filtersSlice";
 import { useEffect, useState } from "react";
 import { LazyQueryTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 
-export const useGetMoviesWithFilters = () => {
+export const useGetMoviesWithFilters = (
+  triggerByFilters: LazyQueryTrigger<any>,
+  triggerByName: LazyQueryTrigger<any>,
+): boolean => {
   const filters = useFiltersSelector();
-  const [currentRequest, setCurrentRequest] =
-    useState<ReturnType<LazyQueryTrigger<any>>>();
-
-  const [triggerByFilters, byFiltersResult] = useLazyGetMoviesQuery();
-
-  const [triggerByName, byNameResult] = useLazyGetMovieByNameQuery();
+  const [isSearchByFilters, setIsSearchByFilters] = useState<boolean>(
+    !filters.query,
+  );
 
   useEffect(() => {
-    if (currentRequest) currentRequest.abort();
+    let request: ReturnType<LazyQueryTrigger<any>>;
     if (filters.query) {
-      setCurrentRequest(triggerByName(filters.query));
+      setIsSearchByFilters(false);
+      request = triggerByName(filters.query);
     } else {
-      setCurrentRequest(triggerByFilters(filters));
+      setIsSearchByFilters(true);
+      request = triggerByFilters(filters, true);
     }
-  }, [filters]);
+    return () => request.abort();
+  }, [
+    filters.query,
+    filters.page,
+    filters.limit,
+    filters.year,
+    filters.country,
+    filters.ageRating,
+    filters.genre,
+  ]);
 
-  return filters.query ? byNameResult : byFiltersResult;
+  return isSearchByFilters;
 };
