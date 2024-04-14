@@ -1,5 +1,5 @@
 import { Movie } from "../../types/Movie";
-import { Card, Flex, Image, List, Typography } from "antd";
+import { Card, Flex, Image, List, Skeleton, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { MovieRating } from "./MovieRating";
 import { FC } from "react";
@@ -19,8 +19,12 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
     <List.Item key={movie.id}>
       <Card bordered={false}>
         <Flex gap="middle" wrap={"wrap"}>
-          <Flex>
-            <Image width={width * 0.1} src={movie.poster.previewUrl} />
+          <Flex vertical>
+            {
+              movie.poster.previewUrl ?
+                <Image width={width * 0.1} src={movie.poster.previewUrl}/> :
+                <><Skeleton.Image/> Нет постера</>
+            }
           </Flex>
           <Flex flex={1} wrap="wrap">
             <Flex gap="small" vertical align="flex-start">
@@ -32,11 +36,13 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
               <Text>
                 {movie.alternativeName ? `${movie.alternativeName}, ` : " "}
                 {movie.isSeries
-                  ? `${movie.releaseYears[0]?.start}-${movie.releaseYears[0]?.end}, ${movie.seasonsInfo.length} сезонов`
+                  ? `${movie.releaseYears[0]?.start}-${movie.releaseYears[0]?.end}, ${movie.seasonsInfo?.length} сезонов`
                   : `${movie.year}, ${movie.movieLength} мин.`}
               </Text>
               <Text>
-                {movie.countries[0].name} <MinusOutlined />{" "}
+                {movie.countries[0] ?
+                  <>{movie.countries[0].name} <MinusOutlined /> </>
+                  : ""}
                 {movie.genres[0]?.name}
               </Text>
               <Paragraph>{movie.shortDescription}</Paragraph>
