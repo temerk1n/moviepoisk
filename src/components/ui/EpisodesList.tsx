@@ -8,12 +8,14 @@ interface EpisodesListProps {
   isFetching: boolean;
 }
 
-export const EpisodesList: FC<EpisodesListProps> = memo(({episodes, isFetching}) => {
-  return (
-    <List
-      dataSource={episodes}
-      loading={isFetching}
-      renderItem={(episode: Episode) => <EpisodeListItem episode={episode}/>}
-    />
-  )
-})
+export const EpisodesList: FC<EpisodesListProps> = memo(
+  ({ episodes, isFetching }) => {
+    return (
+      <List
+        dataSource={episodes}
+        loading={isFetching}
+        renderItem={(episode: Episode) => <EpisodeListItem episode={episode} />}
+      />
+    );
+  },
+);

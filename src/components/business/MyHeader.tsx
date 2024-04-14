@@ -1,10 +1,17 @@
-import { Flex, Layout, Typography } from "antd";
-import { CSSProperties, FC } from "react";
+import { Button, Flex, Layout, Typography } from "antd";
+import { CSSProperties, FC, useCallback, useState } from "react";
 import { useFiltersSelector } from "../../store/filtersSlice";
 import { useResize } from "../../utils/hooks/useResize";
 import { SearchMovieInput } from "./SearchMovieInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getQueryParams } from "../../utils/getQueryParams";
+import { AuthButton } from "../ui/AuthButton";
+import { setUser, User, useUserSelector } from "../../store/userSlice";
+import { ModalWithAuth } from "./ModalWithAuth";
+import { users } from "../../constants";
+import { useAppDispatch } from "../../store/store";
+import { createPortal } from "react-dom";
+import { QuestionOutlined } from "@ant-design/icons";
 
 const { Header } = Layout;
 const { Title } = Typography;
@@ -20,12 +27,45 @@ const headerStyle: CSSProperties = {
 
 const headerTitleStyle: CSSProperties = {
   color: "white",
-  fontSize: "1.8rem",
 };
 
 export const MyHeader: FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const user = useUserSelector();
   const filters = useFiltersSelector();
-  const width = useResize();
+  const { width, isScreenMd } = useResize();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  // const [showAuthFailedAlert, setShowAuthFailedAlert] = useState(false);
+
+  const onLogin = (values: User) => {
+    if (users.find((user) => values.login === user.login && values.password === user.password)) {
+      dispatch(setUser(values));
+      onClose();
+    } else {
+      // setShowAuthFailedAlert(true);
+    }
+  }
+
+  const onClick = useCallback(() => {
+    if (!user) {
+      setShowAuthModal(true);
+    }
+  }, [user]);
+
+  const onClose = useCallback(() => {
+    setShowAuthModal(false);
+  }, [])
+
+  const onRandomClick = useCallback(() => {
+    navigate('/movie/random');
+  }, [])
+
+  if (!isScreenMd) {
+    headerTitleStyle.fontSize = "1rem";
+  } else {
+    headerTitleStyle.fontSize = "1.8rem";
+  }
 
   return (
     <Header style={headerStyle}>
@@ -37,10 +77,13 @@ export const MyHeader: FC = () => {
             </Title>
           </Link>
         </Flex>
-        <Flex style={{ width: "fit-content", minWidth: width * 0.15 }}>
+        <Flex gap='small' align="center" style={{ width: "fit-content", minWidth: width * 0.15 }}>
+          <Button onClick={onRandomClick} shape="circle" icon={<QuestionOutlined />}/>
           <SearchMovieInput />
+          <AuthButton onClick={onClick} ghost={!!user}/>
         </Flex>
       </Flex>
+      {showAuthModal && createPortal(<ModalWithAuth showModal={showAuthModal} onLogin={onLogin} onClose={onClose}/>, document.body)}
     </Header>
   );
 };

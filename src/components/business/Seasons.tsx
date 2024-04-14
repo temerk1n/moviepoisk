@@ -20,12 +20,14 @@ export const Seasons: FC = () => {
       return {
         key: season.number.toString(),
         label: `${season.number} сезон`,
-        children: <EpisodesList episodes={season.episodes} isFetching={isFetching}/>,
+        children: (
+          <EpisodesList episodes={season.episodes} isFetching={isFetching} />
+        ),
       };
     })
     .sort((a, b) => parseInt(a.key) - parseInt(b.key));
 
-  if (!data) return <Title level={4}>Не найдено информации о сезонах</Title>
+  if (!data) return <Title level={4}>Не найдено информации о сезонах</Title>;
 
   return (
     <>

@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { MovieCardList } from "../components/business/MovieCardList";
-import { Layout } from "antd";
+import { Flex, Layout } from "antd";
 import { ErrorAlert } from "../components/ui/ErrorAlert";
-import { HomePageSider } from "../components/business/HomePageSider";
+import { PageSider } from "../components/business/PageSider";
 import { useGetMoviesWithFilters } from "../utils/hooks/useGetMoviesWithFilters";
 import { useSearchParamsUpdater } from "../utils/hooks/useSearchParamsUpdater";
 import { useSearchParamsFilters } from "../utils/hooks/useSearchParamsFilters";
@@ -33,16 +33,20 @@ export const HomePage: FC = () => {
 
   return (
     <Content className="content">
-      <Layout style={{ gap: "2rem" }}>
-        <HomePageSider />
-        <Content style={{ marginLeft: "14rem" }}>
-          <MovieCardList
-            movies={movies?.docs}
-            totalPages={movies?.pages}
-            isFetching={isFetching}
-          />
-          <ErrorAlert isError={isError} />
-        </Content>
+      <Layout>
+        <Flex gap="middle" wrap="wrap">
+          <PageSider />
+          <Flex flex={3}>
+            <Content>
+              <MovieCardList
+                movies={movies?.docs}
+                totalPages={movies?.pages}
+                isFetching={isFetching}
+              />
+              <ErrorAlert isError={isError} />
+            </Content>
+          </Flex>
+        </Flex>
       </Layout>
     </Content>
   );
