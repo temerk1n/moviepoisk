@@ -2,7 +2,7 @@ import { Rating } from "./Rating";
 import { Genre } from "./Genre";
 import { Poster } from "./Poster";
 import { Country } from "./Country";
-import { Season } from "./Season";
+import { SeasonInfo } from "./SeasonInfo";
 
 export type ReleaseYears = {
   start: number | null;
@@ -23,7 +23,7 @@ export type Movie = {
   countries: Country[];
   releaseYears: ReleaseYears[];
   isSeries: boolean;
-  seasonsInfo: Season[] | [];
+  seasonsInfo: SeasonInfo[];
 };
 
 export type MovieKeys = keyof Movie;

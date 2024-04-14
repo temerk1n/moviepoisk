@@ -1,4 +1,9 @@
+import { Episode } from "./Episode";
+
 export type Season = {
-  number: number | null;
-  episodes: number | null;
+  movieId: number;
+  number: number;
+  episodesCount: number;
+  episodes: Episode[];
+  description: string;
 };

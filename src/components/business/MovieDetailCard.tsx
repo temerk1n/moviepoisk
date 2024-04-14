@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { ReviewList } from "./ReviewList";
 import { ErrorAlert } from "../ui/ErrorAlert";
 import { useRequestTriggerWithAbort } from "../../utils/hooks/useRequestTriggerWithAbort";
+import { Seasons } from "./Seasons";
 
 export const MovieDetailCard: FC = () => {
   const { movieId } = useParams();
@@ -27,6 +28,7 @@ export const MovieDetailCard: FC = () => {
           showSkeleton={showSkeleton}
           isError={isError}
         />
+        {movie?.isSeries && <Seasons />}
         <MoviePosters />
         <SimilarMoviesCarousel
           similarMovies={movie?.similarMovies!}
