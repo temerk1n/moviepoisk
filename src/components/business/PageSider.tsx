@@ -52,7 +52,7 @@ export const PageSider: FC<PageSiderProps> = ({
         background: colorBgContainer,
         borderRadius: borderRadiusLG,
         height: "fit-content",
-        width: isScreenMd ? width * 0.2 : width * 0.8,
+        width: isScreenMd ? "fit-content" : width * 0.8,
         marginTop: "1rem",
         padding: "1rem",
       }}

@@ -1,18 +1,22 @@
 import { Card, Flex } from "antd";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { MovieDetailCardMainInfo } from "../ui/MovieDetailCardMainInfo";
 import { SimilarMoviesCarousel } from "./SimilarMoviesCarousel";
 import { useLazyGetMovieByIdQuery } from "../../store/movieApi";
 import { MoviePosters } from "./MoviePosters";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ReviewList } from "./ReviewList";
 import { ErrorAlert } from "../ui/ErrorAlert";
 import { useRequestTriggerWithAbort } from "../../utils/hooks/useRequestTriggerWithAbort";
 import { Seasons } from "./Seasons";
 import { BackButton } from "../ui/BackButton";
+import { getQueryParams } from "../../utils/getQueryParams";
+import { useFiltersSelector } from "../../store/filtersSlice";
 
 export const MovieDetailCard: FC = () => {
   const { movieId } = useParams();
+  const filters = useFiltersSelector();
+  const navigate = useNavigate();
 
   const [trigger, { data: movie, isError, isFetching }] =
     useLazyGetMovieByIdQuery();
@@ -21,11 +25,15 @@ export const MovieDetailCard: FC = () => {
 
   const showSkeleton: boolean = isFetching || isError;
 
+  const onClick = useCallback(() => {
+    navigate("/?" + getQueryParams(filters));
+  }, [navigate, filters]);
+
   return (
     <Card>
       <Flex vertical gap="middle">
         <Flex style={{ maxWidth: "2rem" }}>
-          <BackButton />
+          <BackButton onClick={onClick} />
         </Flex>
         <Flex gap="medium" vertical>
           <MovieDetailCardMainInfo
