@@ -1,17 +1,29 @@
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {HomePage} from "../pages/HomePage/HomePage";
-import {MoviePage} from "../pages/MoviePage/MoviePage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { HomePage } from "../pages/HomePage";
+import { MoviePage } from "../pages/MoviePage";
+import { ErrorPage } from "../pages/ErrorPage";
+import { MyLayout } from "../components/ui/MyLayout";
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <HomePage />
+    path: "/",
+    element: (
+      <MyLayout>
+        <HomePage />
+      </MyLayout>
+    ),
+    errorElement: <ErrorPage />,
   },
   {
-    path: 'movie/:movieId',
-    element: <MoviePage />
-  }
-])
+    path: "movie/:movieId",
+    element: (
+      <MyLayout>
+        <MoviePage />
+      </MyLayout>
+    ),
+    errorElement: <ErrorPage />,
+  },
+]);
 
 export function BrowserRouter() {
   return <RouterProvider router={router} />;

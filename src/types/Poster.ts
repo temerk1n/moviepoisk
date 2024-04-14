@@ -1,4 +1,5 @@
 export type Poster = {
-  url: string,
-  previewUrl: string,
-}
+  id: string;
+  url: string;
+  previewUrl: string;
+};

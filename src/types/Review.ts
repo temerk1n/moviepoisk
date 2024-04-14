@@ -5,4 +5,4 @@ export type Review = {
   review: string;
   date: string;
   author: string;
-}
+};

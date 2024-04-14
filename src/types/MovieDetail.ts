@@ -1,9 +1,11 @@
-import {Movie} from "./Movie";
-import {Person} from "./Person";
+import { Movie } from "./Movie";
+import { Person } from "./Person";
 
 export type MovieDetail = {
-  description: string;
+  description: string | null;
   similarMovies: Movie[];
   persons: Person[];
-  slogan: string;
+  slogan: string | null;
 } & Movie;
+
+export type MovieDetailKeys = keyof MovieDetail;
