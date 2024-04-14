@@ -1,5 +1,5 @@
 import { Movie } from "../../types/Movie";
-import { Card, Flex, Image, List, Skeleton, Typography } from "antd";
+import { Card, Flex, Image, Skeleton, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { MovieRating } from "./MovieRating";
 import { FC, memo } from "react";
@@ -13,15 +13,14 @@ interface MovieCardProps {
 }
 
 export const MovieCard: FC<MovieCardProps> = memo(({ movie }) => {
-  const { width } = useResize();
+  const { width, isScreenMd } = useResize();
 
   return (
-    <List.Item key={movie.id}>
       <Card bordered={false}>
         <Flex gap="middle" wrap={"wrap"}>
           <Flex vertical>
-            {movie.poster.previewUrl ? (
-              <Image width={width * 0.1} src={movie.poster.previewUrl} />
+            {movie.poster?.previewUrl ? (
+              <Image width={isScreenMd ? 150 : 80} src={movie.poster.previewUrl} />
             ) : (
               <>
                 <Skeleton.Image style={{ width: width * 0.1 }} /> Нет постера
@@ -57,7 +56,7 @@ export const MovieCard: FC<MovieCardProps> = memo(({ movie }) => {
           <Flex wrap="wrap">
             <Flex justify="flex-end">
               {movie.rating.kp ? (
-                <MovieRating rating={movie.rating.kp} />
+                <><MovieRating rating={movie.rating.kp} /></>
               ) : (
                 <></>
               )}
@@ -65,6 +64,5 @@ export const MovieCard: FC<MovieCardProps> = memo(({ movie }) => {
           </Flex>
         </Flex>
       </Card>
-    </List.Item>
   );
 });

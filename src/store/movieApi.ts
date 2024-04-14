@@ -11,6 +11,7 @@ import { MoviesQueryParams } from "../types/MoviesQueryParams";
 import { getAllMoviesSelectFields } from "../constants";
 import { MovieDetail } from "../types/MovieDetail";
 import { SeasonsResponse } from "../types/SeasonsResponse";
+import { Movie } from "../types/Movie";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://api.kinopoisk.dev/",
@@ -88,6 +89,11 @@ export const movieApi = createApi({
       },
       keepUnusedDataFor: 10 * 60,
     }),
+    getRandomMovie: builder.query<Movie, MoviesQueryParams>({
+      query: (queryParams) => {
+        return {url: "v1.4/movie/random", params: queryParams};
+      }
+    })
   }),
 });
 
@@ -99,4 +105,5 @@ export const {
   useLazyGetPostersByMovieIdQuery,
   useLazyGetSeasonsByMovieIdQuery,
   useGetPossibleValuesQuery,
+  useLazyGetRandomMovieQuery,
 } = movieApi;

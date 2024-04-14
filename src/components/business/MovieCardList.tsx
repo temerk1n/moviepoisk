@@ -47,7 +47,7 @@ export const MovieCardList: FC<MovieCardListProps> = ({
       loading={isFetching}
       pagination={paginationConfig}
       renderItem={(movie: Movie) => {
-        return <MovieCard movie={movie} />;
+        return <List.Item key={movie.id}><MovieCard movie={movie} /></List.Item>;
       }}
     />
   );
