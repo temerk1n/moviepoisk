@@ -4,6 +4,7 @@ import { MovieDetailDescription } from "./MovieDetailDescription";
 import { MovieRating } from "./MovieRating";
 import { ActorsList } from "../business/ActorsList";
 import { MovieDetail } from "../../types/MovieDetail";
+import { useResize } from "../../utils/hooks/useResize";
 
 const { Text } = Typography;
 
@@ -18,19 +19,21 @@ export const MovieDetailCardMainInfo: FC<MovieDetailCardMainInfoProps> = ({
   showSkeleton,
   isError,
 }) => {
+  const width = useResize();
+
   return (
     <Flex gap="large" wrap="wrap">
-      <Flex vertical>
+      <Flex vertical flex={1}>
         {showSkeleton ? (
           <Skeleton.Image
             active={!isError}
-            style={{ width: 300, height: 300 }}
+            style={{ width: width * 0.2, height: width * 0.2 }}
           />
         ) : (
-          <Image width={300} src={movie?.poster.url} alt="Movie poster" />
+          <Image width={width * 0.2} src={movie?.poster.url} alt="Movie poster" />
         )}
       </Flex>
-      <Flex vertical flex={2}>
+      <Flex vertical flex={3}>
         <MovieDetailDescription
           showSkeleton={showSkeleton}
           isError={isError}
