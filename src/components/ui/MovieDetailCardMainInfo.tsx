@@ -13,7 +13,7 @@ interface MovieDetailCardMainInfoProps {
   showSkeleton: boolean;
   isError: boolean;
 }
-
+// TODO: fix image width and mobile style
 export const MovieDetailCardMainInfo: FC<MovieDetailCardMainInfoProps> = ({
   movie,
   showSkeleton,
