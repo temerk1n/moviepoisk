@@ -38,7 +38,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
               <Text>
                 {movie.alternativeName ? `${movie.alternativeName}, ` : " "}
                 {movie.isSeries
-                  ? `${movie.releaseYears[0]?.start}-${movie.releaseYears[0]?.end}, ${movie.seasonsInfo?.length} сезонов`
+                  ? `${movie.releaseYears[0]?.start}-${movie.releaseYears[0]?.end}, ${movie.seasonsInfo ? movie.seasonsInfo.length + " сезонов" : ""}`
                   : `${movie.year}, ${movie.movieLength} мин.`}
               </Text>
               <Text>

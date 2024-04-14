@@ -24,7 +24,7 @@ export const SimilarMovieItem: FC<SimilarMovieItemProps> = ({ movie }) => {
   const description = (
     <Flex justify="space-between">
       {movie.year}
-      {movie.rating.kp ? <MovieRating rating={movie.rating.kp} /> : <></>}
+      {movie.rating?.kp ? <MovieRating rating={movie.rating.kp} /> : <></>}
     </Flex>
   );
 
