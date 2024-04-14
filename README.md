@@ -13,6 +13,10 @@ docker-compose -f docker-compose.dev.yml up
 ### Терминал
 
 ```bash
+npm install
+```
+
+```bash
 REACT_APP_TOKEN=<your api token> npm run start
 ```
 
