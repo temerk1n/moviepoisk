@@ -20,12 +20,17 @@ const headerStyle: CSSProperties = {
 
 const headerTitleStyle: CSSProperties = {
   color: "white",
-  fontSize: "1.8rem",
 };
 
 export const MyHeader: FC = () => {
   const filters = useFiltersSelector();
-  const width = useResize();
+  const { width, isScreenMd } = useResize();
+
+  if (!isScreenMd) {
+    headerTitleStyle.fontSize = "1.2rem";
+  } else {
+    headerTitleStyle.fontSize = "1.8rem";
+  }
 
   return (
     <Header style={headerStyle}>

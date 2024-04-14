@@ -13,7 +13,7 @@ interface MovieCardProps {
 }
 
 export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
-  const width = useResize();
+  const { width } = useResize();
 
   return (
     <List.Item key={movie.id}>

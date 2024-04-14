@@ -13,24 +13,28 @@ interface MovieDetailCardMainInfoProps {
   showSkeleton: boolean;
   isError: boolean;
 }
-// TODO: fix image width and mobile style
+
 export const MovieDetailCardMainInfo: FC<MovieDetailCardMainInfoProps> = ({
   movie,
   showSkeleton,
   isError,
 }) => {
-  const width = useResize();
+  const { width, isScreenMd } = useResize();
 
   return (
-    <Flex gap="large" wrap="wrap">
+    <Flex gap="large" wrap="wrap" vertical={width < 760}>
       <Flex vertical flex={1}>
         {showSkeleton ? (
           <Skeleton.Image
             active={!isError}
-            style={{ width: width * 0.2, height: width * 0.2 }}
+            style={{ width: isScreenMd ? 300 : 200, height: width * 0.2 }}
           />
         ) : (
-          <Image width={width * 0.2} src={movie?.poster.url} alt="Movie poster" />
+          <Image
+            width={isScreenMd ? 300 : 200}
+            src={movie?.poster.url}
+            alt="Movie poster"
+          />
         )}
       </Flex>
       <Flex vertical flex={3}>

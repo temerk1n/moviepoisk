@@ -4,7 +4,6 @@ import { Carousel, Flex, Skeleton, Typography } from "antd";
 import { useResize } from "../../utils/hooks/useResize";
 import { getSkeletonImageStyle } from "../../utils/getSkeletonImageStyle";
 import { SimilarMovieItem } from "../ui/SimilarMovieItem";
-import { getCarouselStyle } from "../../utils/hooks/getCarouselStyle";
 
 const { Title, Text } = Typography;
 
@@ -17,7 +16,7 @@ export const SimilarMoviesCarousel: FC<SimilarMoviesCarouselProps> = ({
   similarMovies,
   isFetching,
 }: SimilarMoviesCarouselProps) => {
-  const width = useResize();
+  const { width, isScreenMd } = useResize();
 
   const similarMoviesList = similarMovies?.map((movie) => {
     return <SimilarMovieItem key={movie.id} movie={movie} />;
@@ -35,7 +34,7 @@ export const SimilarMoviesCarousel: FC<SimilarMoviesCarouselProps> = ({
           autoplay
           autoplaySpeed={10000}
           dotPosition="top"
-          style={getCarouselStyle(width)}
+          style={{ width: isScreenMd ? 400 : 250 }}
         >
           {similarMoviesList ?? []}
         </Carousel>
