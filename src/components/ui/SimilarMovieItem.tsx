@@ -15,7 +15,7 @@ interface SimilarMovieItemProps {
 export const SimilarMovieItem: FC<SimilarMovieItemProps> = ({ movie }) => {
   const title = (
     <Link to={`/movie/${movie.id}`}>
-      <Title className="card-title" level={3}>
+      <Title className="card-title" level={3} ellipsis>
         {movie.name ? movie.name : movie.alternativeName}
       </Title>
     </Link>
@@ -24,7 +24,7 @@ export const SimilarMovieItem: FC<SimilarMovieItemProps> = ({ movie }) => {
   const description = (
     <Flex justify="space-between">
       {movie.year}
-      {movie.rating.kp ? <MovieRating rating={movie.rating.kp} /> : <></>}
+      {movie.rating?.kp ? <MovieRating rating={movie.rating.kp} /> : <></>}
     </Flex>
   );
 

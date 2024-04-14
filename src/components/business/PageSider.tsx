@@ -1,4 +1,4 @@
-import { Button, Flex, Layout, Select, theme, Typography } from "antd";
+import { Button, Flex, Select, theme, Typography } from "antd";
 import { FC, useCallback } from "react";
 import { useGetFiltersPossibleValues } from "../../utils/hooks/useGetFiltersPossibleValues";
 import { mapOptions } from "../../utils/mapOptions";
@@ -10,16 +10,20 @@ import {
   useFiltersSelector,
 } from "../../store/filtersSlice";
 import { useAppDispatch } from "../../store/store";
-
-const { Sider } = Layout;
+import { useResize } from "../../utils/hooks/useResize";
 
 const { Text } = Typography;
 
-export const HomePageSider: FC = () => {
+interface PageSiderProps {
+  showRandomButton?: true;
+  onRandomClick?: () => void;
+}
+
+export const PageSider: FC<PageSiderProps> = ({showRandomButton, onRandomClick}) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
+  const {width, isScreenMd} = useResize();
   const dispatch = useAppDispatch();
   const filters = useFiltersSelector();
 
@@ -40,19 +44,17 @@ export const HomePageSider: FC = () => {
   }, [dispatch]);
 
   return (
-    <Sider
+    <Flex
       style={{
         background: colorBgContainer,
         borderRadius: borderRadiusLG,
         height: "fit-content",
-        width: "2rem",
+        width: isScreenMd ? width * 0.2 : width * 0.8,
         marginTop: "1rem",
-        position: "fixed",
-        overflow: "auto",
         padding: "1rem",
       }}
     >
-      <Flex vertical gap="large" justify="space-between">
+      <Flex vertical gap="large" justify="space-between" flex={1}>
         <Flex vertical gap="small">
           <Text>Страна</Text>
           <Select
@@ -98,7 +100,8 @@ export const HomePageSider: FC = () => {
         <Button onClick={onResetFilters}>
           <Text>Очистить фильтры</Text>
         </Button>
+        {showRandomButton && <Button onClick={onRandomClick}>Случайный фильм</Button>}
       </Flex>
-    </Sider>
+    </Flex>
   );
 };

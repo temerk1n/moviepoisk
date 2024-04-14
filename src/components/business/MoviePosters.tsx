@@ -4,16 +4,14 @@ import { useLazyGetPostersByMovieIdQuery } from "../../store/movieApi";
 import { useParams } from "react-router-dom";
 import { Poster } from "../../types/Poster";
 import { useResize } from "../../utils/hooks/useResize";
-import { imageScaleFactor } from "../../constants";
 import { getSkeletonImageStyle } from "../../utils/getSkeletonImageStyle";
-import { getCarouselStyle } from "../../utils/hooks/getCarouselStyle";
 import { useRequestTriggerWithAbort } from "../../utils/hooks/useRequestTriggerWithAbort";
 
 const { Title, Text } = Typography;
 
 export const MoviePosters: FC = () => {
   const { movieId } = useParams();
-  const width = useResize();
+  const { width, isScreenMd } = useResize();
 
   const [trigger, { data, isFetching, isSuccess }] =
     useLazyGetPostersByMovieIdQuery();
@@ -25,7 +23,7 @@ export const MoviePosters: FC = () => {
       <Image
         key={poster.id}
         src={poster.url}
-        width={width * imageScaleFactor}
+        width={isScreenMd ? 400 : 250}
         preview={false}
         style={{ margin: "auto" }}
       />
@@ -40,7 +38,7 @@ export const MoviePosters: FC = () => {
       ) : isSuccess && PostersList?.length === 0 ? (
         <Text>Постеров нет</Text>
       ) : (
-        <Carousel dotPosition="top" style={getCarouselStyle(width)}>
+        <Carousel dotPosition="top" style={{ width: isScreenMd ? 400 : 250 }}>
           {PostersList}
         </Carousel>
       )}

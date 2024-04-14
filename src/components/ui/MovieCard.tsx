@@ -1,8 +1,8 @@
 import { Movie } from "../../types/Movie";
-import { Card, Flex, Image, List, Skeleton, Typography } from "antd";
+import { Card, Flex, Image, Skeleton, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { MovieRating } from "./MovieRating";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { MinusOutlined } from "@ant-design/icons";
 import { useResize } from "../../utils/hooks/useResize";
 
@@ -12,16 +12,15 @@ interface MovieCardProps {
   movie: Movie;
 }
 
-export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
-  const width = useResize();
+export const MovieCard: FC<MovieCardProps> = memo(({ movie }) => {
+  const { width, isScreenMd } = useResize();
 
   return (
-    <List.Item key={movie.id}>
       <Card bordered={false}>
         <Flex gap="middle" wrap={"wrap"}>
           <Flex vertical>
-            {movie.poster.previewUrl ? (
-              <Image width={width * 0.1} src={movie.poster.previewUrl} />
+            {movie.poster?.previewUrl ? (
+              <Image width={isScreenMd ? 150 : 80} src={movie.poster.previewUrl} />
             ) : (
               <>
                 <Skeleton.Image style={{ width: width * 0.1 }} /> Нет постера
@@ -38,7 +37,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
               <Text>
                 {movie.alternativeName ? `${movie.alternativeName}, ` : " "}
                 {movie.isSeries
-                  ? `${movie.releaseYears[0]?.start}-${movie.releaseYears[0]?.end}, ${movie.seasonsInfo?.length} сезонов`
+                  ? `${movie.releaseYears[0]?.start}-${movie.releaseYears[0]?.end}, ${movie.seasonsInfo ? movie.seasonsInfo.length + " сезонов" : ""}`
                   : `${movie.year}, ${movie.movieLength} мин.`}
               </Text>
               <Text>
@@ -57,7 +56,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
           <Flex wrap="wrap">
             <Flex justify="flex-end">
               {movie.rating.kp ? (
-                <MovieRating rating={movie.rating.kp} />
+                <><MovieRating rating={movie.rating.kp} /></>
               ) : (
                 <></>
               )}
@@ -65,6 +64,5 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
           </Flex>
         </Flex>
       </Card>
-    </List.Item>
   );
-};
+});

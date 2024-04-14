@@ -40,7 +40,7 @@ export const SearchMovieInput: FC = memo(() => {
       dispatch(setQuery(debouncedMovieName));
       navigate(`/?page=1&limit=10&movieName=${debouncedMovieName}`);
     }
-  }, [debouncedMovieName, dispatch, navigate, searchHistory]);
+  }, [debouncedMovieName]);
 
   const onChange = useCallback(
     (value: string) => {
