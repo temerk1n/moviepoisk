@@ -91,9 +91,9 @@ export const movieApi = createApi({
     }),
     getRandomMovie: builder.query<Movie, MoviesQueryParams>({
       query: (queryParams) => {
-        return {url: "v1.4/movie/random", params: queryParams};
-      }
-    })
+        return { url: "v1.4/movie/random", params: queryParams };
+      },
+    }),
   }),
 });
 

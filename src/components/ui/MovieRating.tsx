@@ -5,7 +5,7 @@ interface MovieRatingProps {
   rating: number;
 }
 
-export const MovieRating: FC<MovieRatingProps> = ({rating}) => {
+export const MovieRating: FC<MovieRatingProps> = ({ rating }) => {
   return (
     <Flex>
       {rating}

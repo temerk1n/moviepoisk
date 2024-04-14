@@ -6,9 +6,9 @@ interface ProtectedProps {
   children: JSX.Element;
 }
 
-export const Protected: FC<ProtectedProps> = ({children}) => {
+export const Protected: FC<ProtectedProps> = ({ children }) => {
   const user = useUserSelector();
 
   if (user) return children;
-  else return <Navigate to={"/"}/>;
-}
+  else return <Navigate to={"/"} />;
+};

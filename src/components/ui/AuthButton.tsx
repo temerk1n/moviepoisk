@@ -7,6 +7,13 @@ interface AuthButtonProps {
   ghost: boolean;
 }
 
-export const AuthButton: FC<AuthButtonProps> = memo(({onClick, ghost}) => {
-  return <Button shape="circle" icon={<UserOutlined />} onClick={onClick} ghost={ghost}/>;
+export const AuthButton: FC<AuthButtonProps> = memo(({ onClick, ghost }) => {
+  return (
+    <Button
+      shape="circle"
+      icon={<UserOutlined />}
+      onClick={onClick}
+      ghost={ghost}
+    />
+  );
 });

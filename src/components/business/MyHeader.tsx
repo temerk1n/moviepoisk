@@ -39,13 +39,18 @@ export const MyHeader: FC = () => {
   // const [showAuthFailedAlert, setShowAuthFailedAlert] = useState(false);
 
   const onLogin = (values: User) => {
-    if (users.find((user) => values.login === user.login && values.password === user.password)) {
+    if (
+      users.find(
+        (user) =>
+          values.login === user.login && values.password === user.password,
+      )
+    ) {
       dispatch(setUser(values));
       onClose();
     } else {
       // setShowAuthFailedAlert(true);
     }
-  }
+  };
 
   const onClick = useCallback(() => {
     if (!user) {
@@ -55,11 +60,11 @@ export const MyHeader: FC = () => {
 
   const onClose = useCallback(() => {
     setShowAuthModal(false);
-  }, [])
+  }, []);
 
   const onRandomClick = useCallback(() => {
-    navigate('/movie/random');
-  }, [])
+    navigate("/movie/random");
+  }, []);
 
   if (!isScreenMd) {
     headerTitleStyle.fontSize = "1rem";
@@ -77,13 +82,29 @@ export const MyHeader: FC = () => {
             </Title>
           </Link>
         </Flex>
-        <Flex gap='small' align="center" style={{ width: "fit-content", minWidth: width * 0.15 }}>
-          <Button onClick={onRandomClick} shape="circle" icon={<QuestionOutlined />}/>
+        <Flex
+          gap="small"
+          align="center"
+          style={{ width: "fit-content", minWidth: width * 0.15 }}
+        >
+          <Button
+            onClick={onRandomClick}
+            shape="circle"
+            icon={<QuestionOutlined />}
+          />
           <SearchMovieInput />
-          <AuthButton onClick={onClick} ghost={!!user}/>
+          <AuthButton onClick={onClick} ghost={!!user} />
         </Flex>
       </Flex>
-      {showAuthModal && createPortal(<ModalWithAuth showModal={showAuthModal} onLogin={onLogin} onClose={onClose}/>, document.body)}
+      {showAuthModal &&
+        createPortal(
+          <ModalWithAuth
+            showModal={showAuthModal}
+            onLogin={onLogin}
+            onClose={onClose}
+          />,
+          document.body,
+        )}
     </Header>
   );
 };

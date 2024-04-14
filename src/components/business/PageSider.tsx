@@ -19,11 +19,14 @@ interface PageSiderProps {
   onRandomClick?: () => void;
 }
 
-export const PageSider: FC<PageSiderProps> = ({showRandomButton, onRandomClick}) => {
+export const PageSider: FC<PageSiderProps> = ({
+  showRandomButton,
+  onRandomClick,
+}) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const {width, isScreenMd} = useResize();
+  const { width, isScreenMd } = useResize();
   const dispatch = useAppDispatch();
   const filters = useFiltersSelector();
 
@@ -100,7 +103,9 @@ export const PageSider: FC<PageSiderProps> = ({showRandomButton, onRandomClick})
         <Button onClick={onResetFilters}>
           <Text>Очистить фильтры</Text>
         </Button>
-        {showRandomButton && <Button onClick={onRandomClick}>Случайный фильм</Button>}
+        {showRandomButton && (
+          <Button onClick={onRandomClick}>Случайный фильм</Button>
+        )}
       </Flex>
     </Flex>
   );

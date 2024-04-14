@@ -9,27 +9,31 @@ interface ModalWithAuthProps {
   onClose: () => void;
 }
 
-export const ModalWithAuth: FC<ModalWithAuthProps> = memo(({showModal, onLogin, onClose}) => {
-  const [formInstance, setFormInstance] = useState<FormInstance<User>>();
+export const ModalWithAuth: FC<ModalWithAuthProps> = memo(
+  ({ showModal, onLogin, onClose }) => {
+    const [formInstance, setFormInstance] = useState<FormInstance<User>>();
 
-  const onOk = useCallback(() => {
-    const values = formInstance?.getFieldsValue();
-    onLogin(values as User);
-  }, [formInstance, onLogin]);
+    const onOk = useCallback(() => {
+      const values = formInstance?.getFieldsValue();
+      onLogin(values as User);
+    }, [formInstance, onLogin]);
 
-  return (
-    <Modal
-      open={showModal}
-      title="Авторизация"
-      okText="Авторизоваться"
-      cancelText="Отмена"
-      onCancel={onClose}
-      destroyOnClose
-      onOk={onOk}
-    >
-      <AuthForm onFormInstanceReady={(instance) => {
-        setFormInstance(instance);
-      }}/>
-    </Modal>
-  )
-})
+    return (
+      <Modal
+        open={showModal}
+        title="Авторизация"
+        okText="Авторизоваться"
+        cancelText="Отмена"
+        onCancel={onClose}
+        destroyOnClose
+        onOk={onOk}
+      >
+        <AuthForm
+          onFormInstanceReady={(instance) => {
+            setFormInstance(instance);
+          }}
+        />
+      </Modal>
+    );
+  },
+);
