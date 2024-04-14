@@ -36,14 +36,11 @@ export const MyHeader: FC = () => {
   const filters = useFiltersSelector();
   const { width, isScreenMd } = useResize();
   const [showAuthModal, setShowAuthModal] = useState(false);
-  // const [showAuthFailedAlert, setShowAuthFailedAlert] = useState(false);
 
   const onLogin = (values: User) => {
     if (users.find((user) => values.login === user.login && values.password === user.password)) {
       dispatch(setUser(values));
       onClose();
-    } else {
-      // setShowAuthFailedAlert(true);
     }
   }
 
@@ -59,7 +56,7 @@ export const MyHeader: FC = () => {
 
   const onRandomClick = useCallback(() => {
     navigate('/movie/random');
-  }, [])
+  }, [navigate])
 
   if (!isScreenMd) {
     headerTitleStyle.fontSize = "1rem";
