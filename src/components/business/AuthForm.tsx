@@ -14,7 +14,13 @@ export const AuthForm: FC<AuthFormProps> = memo(({ onFormInstanceReady }) => {
   }, [form, onFormInstanceReady]);
 
   return (
-    <Form name="auth" autoComplete="off" style={{ paddingTop: "10%" }} form={form} layout="vertical">
+    <Form
+      name="auth"
+      autoComplete="off"
+      style={{ paddingTop: "10%" }}
+      form={form}
+      layout="vertical"
+    >
       <Form.Item
         label="Логин"
         name="login"

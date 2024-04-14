@@ -10,7 +10,7 @@ const { Content } = Layout;
 export const RandomMoviePage: FC = () => {
   const filters = useFiltersSelector();
 
-  const [trigger, {data, isFetching}] = useLazyGetRandomMovieQuery();
+  const [trigger, { data, isFetching }] = useLazyGetRandomMovieQuery();
 
   useEffect(() => {
     const request = trigger(filters);
@@ -25,12 +25,16 @@ export const RandomMoviePage: FC = () => {
     <Content className="content">
       <Layout>
         <Flex gap="middle" wrap="wrap">
-          <PageSider showRandomButton onRandomClick={onRandomClick}/>
+          <PageSider showRandomButton onRandomClick={onRandomClick} />
           <Flex flex={3}>
-            <Content style={{marginTop: "1rem"}}>
-              {isFetching
-                ? <Card loading={isFetching}><Spin/></Card>
-                : data && <MovieCard movie={data!}/>}
+            <Content style={{ marginTop: "1rem" }}>
+              {isFetching ? (
+                <Card loading={isFetching}>
+                  <Spin />
+                </Card>
+              ) : (
+                data && <MovieCard movie={data!} />
+              )}
             </Content>
           </Flex>
         </Flex>
