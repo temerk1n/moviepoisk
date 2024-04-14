@@ -2,7 +2,7 @@ import { Movie } from "../../types/Movie";
 import { Card, Flex, Image, List, Skeleton, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { MovieRating } from "./MovieRating";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { MinusOutlined } from "@ant-design/icons";
 import { useResize } from "../../utils/hooks/useResize";
 
@@ -12,7 +12,7 @@ interface MovieCardProps {
   movie: Movie;
 }
 
-export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
+export const MovieCard: FC<MovieCardProps> = memo(({ movie }) => {
   const { width } = useResize();
 
   return (
@@ -67,4 +67,4 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
       </Card>
     </List.Item>
   );
-};
+});
