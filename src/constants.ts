@@ -1,5 +1,11 @@
 import { SelectProps } from "antd";
 import { MovieKeys } from "./types/Movie";
+import { User } from "./store/userSlice";
+
+export const users: User[] = [
+  { login: "admin", password: "admin" },
+  { login: "user", password: "user" },
+];
 
 export const imageScaleFactor: number = 0.3;
 
